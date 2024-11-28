@@ -61,10 +61,7 @@ class User extends Authenticatable
 
     public function getSetPaginateByLimit()
     {
-
-
         $set_goal = $this::with('goals')->find(Auth::id())->goals()->orderBy('updated_at', 'DESC')->where('goals_is_set', true)->first();
-
         return $set_goal;
     }
     public function resetGoalsSet()

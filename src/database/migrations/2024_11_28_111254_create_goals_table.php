@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('goals_point')->default(0);
             $table->boolean('goals_is_achieved')->default(false);
             $table->integer('goagoals_percentls_point')->default(0);
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('wishlists_id')->nullable($value = true);
             $table->boolean('goals_is_set')->default(false);
             $table->timestampsTz($precision = 2);
