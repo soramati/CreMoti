@@ -31,10 +31,13 @@
             @endif
 
 <div class="top center">
-    <h1 class="decoration-indigo-300">Goals</h1>
+
     @if($set_goal ==! null)
 
-
+    <div>
+        <h1>{{$set_goal->howLongTime()}}</h1>
+        <h1>{{$set_goal->howManyDays()}}</h1>
+    </div>
     <div class="card">
         <div>
             <div class="card_title">
@@ -43,13 +46,9 @@
             <p>期限：{{ $set_goal->goals_deadline}}</p>
             <p>条件：{{ $set_goal->goals_conditions}}</p>
             <p>ごほうび：{{ $set_goal->goals_reward}}</p>
-            {{-- <small>{{ $set_goal->user->name }}</small> --}}
-            {{-- <p class='title'> --}}
-                {{-- <a href="/goals/{{ $set_goal->id }}">{{ $set_goal->updated_at }}</a> --}}
-            {{-- <p>{{$set_goal->goals_is_achieved}}</p> --}}
-            {{-- <small>SET:{{ $set_goal->goals_is_set }}</small> --}}
-            {{-- </p> --}}
+
         </div>
+
         <div class="content">
             <form action="/goals/set/{{ $set_goal->id }}" method="POST">
                 @csrf
@@ -99,10 +98,7 @@
                 <p>条件：{{ $goal->goals_conditions}}</p>
                 <p>ごほうび：{{ $goal->goals_reward}}</p>
                 {{-- <small>{{ $goal->user->name }}</small> --}}
-                <p class='title'>
-                    <a href="/goals/{{ $goal->id }}">{{ $goal->updated_at }}</a>
-                <p>{{$goal->goals_is_achieved}}</p>
-                </p>
+         
             </div>
             <div class="content">
                 <form action="/goals/set/{{ $goal->id }}" method="POST">
@@ -142,11 +138,8 @@
                 <p>期限:{{ $goal->goals_deadline}}</p>
                 <p>条件:{{ $goal->goals_conditions}}</p>
                 <p>ごほうび：{{ $goal->goals_reward}}</p>
-                <small>{{ $goal->user->name }}</small>
-                <p class=''>
-                    <a href="/goals/{{ $goal->id }}">{{ $goal->updated_at }}</a>
-                {{-- <p>{{$goal->goals_is_achieved}}</p> --}}
-                </p>
+                {{-- <small>{{ $goal->user->name }}</small> --}}
+
                 <div class="content">
                     <form action="/goals/set/{{ $goal->id }}" method="POST">
                         @csrf

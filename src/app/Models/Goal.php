@@ -59,4 +59,30 @@ class Goal extends Model
 
 
     }
+    public function howManyDays()
+    {
+        $today = new DateTime();
+        $deadline = new DateTime($this->goals_deadline);
+        $interval = $today->diff($deadline);
+        // echo $interval->h;
+        $interval->h += $interval->days * 24;
+        if ($interval->invert == 1) {
+            return "The deadline has passed";
+        } else {
+            return $interval->format("(あと%a日)");
+        }
+    }
+    public function howLongTime()
+    {
+        $today = new DateTime();
+        $deadline = new DateTime($this->goals_deadline);
+        $interval = $today->diff($deadline);
+        // echo $interval->h;
+        $interval->h += $interval->days * 24;
+        if ($interval->invert == 1) {
+            return 0;
+        } else {
+            return $interval->format("%H時間%I分%S秒");
+        }
+    }
 }
