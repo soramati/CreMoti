@@ -1,74 +1,104 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<head>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>goals</title>
-    <!-- Fonts -->
-    
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        <link rel="stylesheet" href="{{ asset('/main.css') }}">
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- <link rel="stylesheet" href="{{ asset('/sanitize.css') }}"> --}}
+
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
+            @include('layouts.navigation')
+
+            <!-- Page Heading -->
+            @if (isset($header))
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endif
+
 <div class="top center">
+    <h1 class="decoration-indigo-300">Goals</h1>
     @if($set_goal ==! null)
 
 
     <div class="card">
         <div>
-            <h4><a href="/goals/{{ $set_goal->id }}">{{ $set_goal->goals_name }}</a></h4>
-            <p>{{ $set_goal->goals_deadline}}</p>
-            <p>{{ $set_goal->goals_conditions}}</p>
-            <p>{{ $set_goal->goals_reward}}</p>
-            <small>{{ $set_goal->user->name }}</small>
-            <p class='title'>
-                <a href="/goals/{{ $set_goal->id }}">{{ $set_goal->updated_at }}</a>
-            <p>{{$set_goal->goals_is_achieved}}</p>
-            <small>SET:{{ $set_goal->goals_is_set }}</small>
-            </p>
+            <div class="card_title">
+                <h4><a href="/goals/{{ $set_goal->id }}">{{ $set_goal->goals_name }}</a></h4>
+            </div>   
+            <p>期限：{{ $set_goal->goals_deadline}}</p>
+            <p>条件：{{ $set_goal->goals_conditions}}</p>
+            <p>ごほうび：{{ $set_goal->goals_reward}}</p>
+            {{-- <small>{{ $set_goal->user->name }}</small> --}}
+            {{-- <p class='title'> --}}
+                {{-- <a href="/goals/{{ $set_goal->id }}">{{ $set_goal->updated_at }}</a> --}}
+            {{-- <p>{{$set_goal->goals_is_achieved}}</p> --}}
+            {{-- <small>SET:{{ $set_goal->goals_is_set }}</small> --}}
+            {{-- </p> --}}
         </div>
         <div class="content">
             <form action="/goals/set/{{ $set_goal->id }}" method="POST">
                 @csrf
                 @method('PATCH')
-                <input type="submit" value="リセット">
+                <input class="button" type="submit" value="リセット">
             </form>
         </div>
+        <div class="content">
         <form action="/goals/{{ $set_goal->id }}" id="form_{{ $set_goal->id }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="button" onclick="deleteGoal({{ $set_goal->id }})">delete</button>
-        </form>
+                <button class="button" type="button" onclick="deleteGoal({{ $set_goal->id }})">delete</button>
+
+            </form>
+        </div>
         <div class="content">
             <form action="/goals/done/{{ $set_goal->id }}" method="POST">
                 @csrf
                 @method('PATCH')
-                <input type="submit" value="完了">
+                <input class="button" type="submit" value="完了">
             </form>
         </div>
+
+    
     </div>
 
 
     @endif
 </div>
 <div class="center">
-    <a href='/goals/create'>create</a>
+    <a href='/goals/create' class="button create">create</a>
 
 </div>
 
-<div class="col center">
+<div class="w-full">
 
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid gap-7 sm:grid-cols-2 md:gap-8 xl:grid-cols-3">
         @foreach($own_posts as $goal)
         @if($goal->goals_is_achieved == 0)
         @if($goal->goals_is_set == 0)
         <div class="own_posts card">
             <div>
-                <h4><a href="/goals/{{ $goal->id }}">{{ $goal->goals_name }}</a></h4>
-                <p>{{ $goal->goals_deadline}}</p>
-                <p>{{ $goal->goals_conditions}}</p>
-                <p>{{ $goal->goals_reward}}</p>
-                <small>{{ $goal->user->name }}</small>
+                <div class="card_title">
+                    <h4><a href="/goals/{{ $goal->id }}">{{ $goal->goals_name }}</a></h4>
+                </div>
+                <p>期限：{{ $goal->formatDate()}}</p>
+                <p>条件：{{ $goal->goals_conditions}}</p>
+                <p>ごほうび：{{ $goal->goals_reward}}</p>
+                {{-- <small>{{ $goal->user->name }}</small> --}}
                 <p class='title'>
                     <a href="/goals/{{ $goal->id }}">{{ $goal->updated_at }}</a>
                 <p>{{$goal->goals_is_achieved}}</p>
@@ -78,19 +108,19 @@
                 <form action="/goals/set/{{ $goal->id }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <input type="submit" value="SET">
+                    <input type="submit" class="button" value="SET">
                 </form>
             </div>
             <form action="/goals/{{ $goal->id }}" id="form_{{ $goal->id }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="button" onclick="deleteGoal({{ $goal->id }})">delete</button>
+                <button type="button" class="button" onclick="deleteGoal({{ $goal->id }})">delete</button>
             </form>
             <div class="content">
                 <form action="/goals/done/{{ $goal->id }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <input type="submit" value="完了">
+                    <input type="submit" class="button" value="完了">
                 </form>
             </div>
         </div>
@@ -98,33 +128,36 @@
         @endif
         @endforeach
     </div>
+    
 
 
-    <div class="row">
-        <div class="card">
+    <div class="row center">
+        <div class="grid sm:grid-cols-1 grid-cols-3 gap-1">
             @foreach($own_posts as $goal)
             @if($goal->goals_is_achieved == 1)
-            <div class="card col">
-                <h4><a href="/goals/{{ $goal->id }}">{{ $goal->goals_name }}</a></h4>
-                <p>{{ $goal->goals_deadline}}</p>
-                <p>{{ $goal->goals_conditions}}</p>
-                <p>{{ $goal->goals_reward}}</p>
+            <div class="card bg-white m-4">
+                <div class="card_title">
+                    <h4><a href="/goals/{{ $goal->id }}">{{ $goal->goals_name }}</a></h4>
+                </div>
+                <p>期限:{{ $goal->goals_deadline}}</p>
+                <p>条件:{{ $goal->goals_conditions}}</p>
+                <p>ごほうび：{{ $goal->goals_reward}}</p>
                 <small>{{ $goal->user->name }}</small>
-                <p class='title'>
+                <p class=''>
                     <a href="/goals/{{ $goal->id }}">{{ $goal->updated_at }}</a>
-                <p>{{$goal->goals_is_achieved}}</p>
+                {{-- <p>{{$goal->goals_is_achieved}}</p> --}}
                 </p>
                 <div class="content">
                     <form action="/goals/set/{{ $goal->id }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <input type="submit" value="SET">
+                        <input  class="button" type="submit" value="SET">
                     </form>
                 </div>
                 <form action="/goals/{{ $goal->id }}" id="form_{{ $goal->id }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="button" onclick="deleteGoal({{ $goal->id }})">delete</button>
+                    <button class="button" type="button"  onclick="deleteGoal({{ $goal->id }})" class="button">delete</button>
                 </form>
                 <div class="content">
                     <form action="/goals/done/{{ $goal->id }}" method="POST">
@@ -138,42 +171,45 @@
         @endif
         @endforeach
     </div>
+
+
+
 </div>
 
+
+
+
+
+
+
 <style>
+    p,h4{
+        color: #333;
+        font-family: sans-serif;
+        font-weight: 550;
+        font-family: "Ryo Gothic PlusN";
+    }
     .center {
         display: flex;
         justify-content: center;
     }
-
-
-
-    .col {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .row {
-        display: flex;
-        align-content: space-around;
-        width: 100%;
-    }
-
-
-
     .card {
-        display: flex;
+        width: 80%;
+        max-width: 300px;
+        margin: 0 auto;
+            max-height: 400px;
+/* flex-shrink: 0; */
+        border-radius: 6px;
+        background: #FFF;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-        flex-direction: column;
-
-        align-items: flex-start;
-        border: 1px solid #333;
-        width: 300px;
     }
-
+.create{
+    margin: 3rem;
+}
     .content {
-        display: flex;
-        justify-content: space-around;
+display: flex;
+justify-content: center
     }
 
     .content_goal {
@@ -201,9 +237,22 @@
         justify-content: space-around;
     }
 
-    .title {
+    .card_title {
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-start;
+        background: #5CE5B4;
+        color: #FFF;
+        padding-left: 5%;
+        width: 100%;
+        min-height: 2rem;
+    }
+    .card_title a {
+    
+        color: #FFF;
+    
+    }
+    .card p{
+        color: #5CE5B4;
     }
 
     .body {
@@ -220,6 +269,41 @@
         display: flex;
         justify-content: space-around;
     }
+
+    .button{
+        width: 8rem;
+        height: 2rem;
+        border-radius: 58px;
+        background: #5CE5B4;
+        flex-shrink: 0;
+
+        color: #FFF;
+text-align: center;
+font-family: "Ryo Gothic PlusN";
+font-size: 16px;
+font-style: normal;
+font-weight: 800;
+line-height: normal;
+border: none;
+margin-bottom: 1rem;
+    }
+        
+button:active,input[type="submit"]:active {
+  translate: 0 0.225em;
+  box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+    0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+    0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+  
+}
+a:active {
+  color: #000000;
+}
+
 </style>
 <script>
     function deleteGoal(id) {

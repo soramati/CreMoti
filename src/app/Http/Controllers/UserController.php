@@ -23,11 +23,6 @@ class UserController extends Controller
             'own_posts' => $user->getOwnPaginateByLimit(),
             'set_goal' => $user->getSetPaginateByLimit()
         ]);
-
-        return Inertia::render('Admin', [
-            'own_posts' => $user->getOwnPaginateByLimit(),
-            'set_goal' => $user->getSetPaginateByLimit()
-        ]);
     }
     public function reset(User $user)
     {

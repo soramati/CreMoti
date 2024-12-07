@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 
 class Goal extends Model
@@ -48,5 +49,14 @@ class Goal extends Model
 
         $this->goals_is_set = 1;
         $this->save();
+    }
+    public function formatDate()
+    {
+        $date =  new DateTime($this->goals_deadline);
+        $formattedDate = $date->format('Y/m/d G:i');
+        return $formattedDate;
+        // return date('Y年m月d日', strtotime($this->goals_deadline));
+
+
     }
 }
