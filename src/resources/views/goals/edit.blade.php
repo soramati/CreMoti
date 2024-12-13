@@ -23,7 +23,7 @@
                 <input type='text' name='goal[goals_reward]' value="{{ $goal->goals_reward }}">
             </div>
             <input type="submit" value="保存">
-            <a href="/dashboard">戻る</a>
+            <a href="/">戻る</a>
         </form>
     </div>
 
