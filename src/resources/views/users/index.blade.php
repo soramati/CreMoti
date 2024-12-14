@@ -18,7 +18,7 @@
 
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-30">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -36,11 +36,11 @@
     @if($set_goal ==! null)
 
         <div class="count_down">
+           
             <h1>完了まで：{{$set_goal->howLongTime()}}</h1>
             <h1>{{$set_goal->howManyDays()}}</h1>
-           <div >
+        
             <div class="mt-7">
-
                 <div class="content ">
                     <form action="/goals/done/{{ $set_goal->id }}" method="POST">
                         @csrf
@@ -52,11 +52,16 @@
                     <a  class="top_button" href="/goals/{{ $set_goal->id }}/edit">編集する</a>
                 </div>
             </div>
-            </div>
+         
+            
+   
         </div>
+
+       
         
-        
+       
         <div class="card">
+            
             <div>
                 <div class="card_title">
                     <h4>
@@ -81,16 +86,21 @@
                     @csrf
                     @method('DELETE')
                     <button class="button" type="button" onclick="deleteGoal({{ $set_goal->id }})">delete</button>
-                    
                 </form>
             </div>
-
         </div>
+        @else
+        <div class="none_title">
+            <h1 class="">今日は、何をしよう。<div class=""></div></h1>
+            <small>ひとつのタスクを選択しよう</small>
+        </div>
+        @endif
     </div>
 </div>
-    @endif
 <div class="center create_bar">
-    <a href='/goals/create' class="button create">create</a>
+    <a href='/goals/create' class="button create create_button" value="新しくつくる">
+    つくる
+    </a>
 </div>
 
 <div class="cards_wrapper w-full">
@@ -116,14 +126,14 @@
                     <form action="/goals/set/{{ $goal->id }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <input class="button" type="submit" value="リセット">
+                        <input class="button" type="submit" value="スタート">
                     </form>
                 </div>
                 <div class="content">
                     <form action="/goals/{{ $goal->id }}" id="form_{{ $goal->id }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="button" type="button" onclick="deleteGoal({{ $goal->id }})">delete</button>
+                        <button class="button" type="button" onclick="deleteGoal({{ $goal->id }})">削除する</button>
                         
                     </form>
                 </div>
@@ -136,9 +146,10 @@
     </div>
     
 
+
 <div class="cards_wrapper w-full ">
 
-  <h3>達成済み！</h3>
+  <h3>達成済み</h3>
     <div class="grid gap-7 sm:grid-cols-2 md:gap-8 xl:grid-cols-3">
             @foreach($own_posts as $goal)
             @if($goal->goals_is_achieved == 1)
@@ -197,6 +208,7 @@
 .cards_wrapper{
    width: 95%;
    margin: 0 auto;
+   max-width: 1200px;
 }
     .create_bar{
         margin-bottom: 3rem;
@@ -277,7 +289,7 @@ right: 0;
     .card {
         width: 80%;
         max-width: 300px;
-        /* margin: 0 auto; */
+        margin: 0 auto;
         max-height: 400px;
 /* flex-shrink: 0; */
 
@@ -327,6 +339,8 @@ justify-content: center
         padding-left: 5%;
         width: 100%;
         min-height: 2rem;
+        border-radius: 2px 2px 0 0;
+        
     }
     .card_title a {
     
@@ -379,11 +393,39 @@ button:active,input[type="submit"]:active {
 a {
   text-decoration: none;
   color: #000000;
+  text-align: center;
   
 }
 a:active {
   color: #000000;
 }
+.none_title{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFF;
+
+}
+.none_title h1{
+
+    font-size: 2rem;
+}
+.create_button{
+    width: 8rem;
+    height: 2rem;
+    border-radius: 58px;
+    background: #5CE5B4;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: "Ryo Gothic PlusN";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+   
+ 
+  
 
 </style>
 <script>

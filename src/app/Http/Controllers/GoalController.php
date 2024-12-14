@@ -37,7 +37,7 @@ class GoalController extends Controller
         $input = $request['goal'];
         $input += ['user_id' => $request->user()->id];
         $goal->fill($input)->save();
-        return redirect('/goals/' . $goal->id);
+        return redirect('/');
     }
     public function edit(Goal $goal)
     {
