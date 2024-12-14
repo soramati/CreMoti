@@ -4,64 +4,106 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>goals</title>
-    <!-- Fonts -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{{ asset('/main.css') }}">
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- <link rel="stylesheet" href="{{ asset('/sanitize.css') }}"> --}}
+
 </head>
 
-<div class="center">
-    <a href='/goals/create'>create</a>
+<div class="page">
 
-</div>
-
-<div class="col center">
-    <h1 class="title">goals</h1>
-    <div class="grid grid-cols-4 gap-4">
-        @foreach($own_posts as $goal)
-        <div class="own_posts card">
-            <div>
-                <h4><a href="/goals/{{ $goal->id }}">{{ $goal->goals_name }}</a></h4>
-                <p>id:{{ $goal->id}}</p>
-                <p>goals_name:{{ $goal->goals_name}}</p>
-                <p>goals_is_deadline:{{ $goal->goals_is_deadline}}</p>
-                <p>goals_deadline:{{ $goal->goals_deadline}}</p>
-                <p>goals_reward:{{ $goal->goals_reward}}</p>
-                <p>goals_conditions:{{ $goal->goals_conditions}}</p>
-                <p>goals_repeat:{{ $goal->goals_repeat}}</p>
-                <p>goals_point:{{ $goal->goals_point}}</p>
-                <p>goals_is_achieved:{{ $goal->goals_is_achieved}}</p>
-                <p>goagoals_percentls_point:{{ $goal->goagoals_percentls_point}}</p>
-                <p>wishlists_id:{{ $goal->wishlists_id}}</p>
-                <p>goals_is_set:{{ $goal->goals_reward}}</p>
-                <p>created_at:{{ $goal->created_at}}</p>
-                <p>updated_at:{{ $goal->updated_at}}</p>
-                <p>deleted_at:{{ $goal->deleted_at}}</p>
-                <p>user_id:{{ $goal->user_id}}</p>
-                <p>user_name{{ $goal->user->name }}</p>
-            </div>
-            <div class="content">
-                <form action="/goals/set/{{ $goal->id }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <input type="submit" value="リセット">
-                </form>
-            </div>
-            <form action="/goals/{{ $goal->id }}" id="form_{{ $goal->id }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="button" onclick="deleteGoal({{ $goal->id }})">delete</button>
-            </form>
-
-        </div>
-        @endforeach
+    <div class="center">
+        <a href='/goals/create'>create</a>
+        
     </div>
+    
+    <div class="col center">
+      
+        <h1>管理画面</h1>
+        
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            title
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            deadline
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            reward
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            user
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            edit
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            delete
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($own_posts as $goal)
+                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $goal->goals_name}}
+                        </th>
+
+                        <td class="px-6 py-4">
+                            {{ $goal->goals_deadline}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $goal->goals_reward}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $goal->user->name }}
+                        </td>
+                        
+                        
+                        <td class="px-6 py-4">
+                            <div class="edit">
+                                <a  class="top_button" href="/goals/{{ $goal->id }}/edit">edit</a>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <form action="/goals/{{ $goal->id }}" id="form_{{ $goal->id }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="deleteGoal({{ $goal->id }})">delete</button>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <Admin />
 
 
 
 
     <style>
+        .page{
+            width: 95%;
+            margin: 0 auto;
+        }
         .center {
             display: flex;
             justify-content: center;
