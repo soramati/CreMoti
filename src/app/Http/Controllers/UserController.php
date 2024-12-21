@@ -30,4 +30,17 @@ class UserController extends Controller
 
         return redirect('/dashboard');
     }
+
+    public function apiindex(User $user)
+    {
+        // $memberList = [
+        //     ['id' => 1, 'name' => 'hoge'],
+        //     ['id' => 2, 'name' => 'fuga'],
+        //     ['id' => 3, 'name' => 'piyo'],
+        // ];
+        // return $memberList;
+        $memberList = $user->getSetPaginateByLimit();
+
+        return $memberList;
+    }
 }

@@ -1,10 +1,38 @@
   <template>
     <div>
       <div>
-        <p>{{ responseData}}</p>
-        <p>{{ responseData[1].name}}</p>
+        <!-- <p>{{ responseData}}</p> -->
         <graph-doughnut  :time="time" :key="time" :start="deadline.int_full" />
       </div>
+      <div class="card">
+            <div>
+                <div class="card_title">
+                    <h4>
+                        <a href="/goals/{{ responseData.id }}">{{ responseData.goals_name }}</a>
+                    </h4>
+                </div>   
+              
+                <p>期限：{{ responseData.goals_deadline}}</p>
+                <p>条件：{{ responseData.goals_conditions}}</p>
+                <p>ごほうび：{{ responseData.goals_reward}}</p>
+                
+            </div>
+            
+            <div class="content mt-10">
+                <form action="/goals/set/{{ responseData.id }}" method="POST">
+                    <!-- @csrf -->
+                    <!-- @method('PATCH') -->
+                    <input class="button" type="submit" value="もとに戻す">
+                </form>
+            </div>
+            <div class="content">
+                <form action="/goals/{{ responseData.id }}" id="form_{{ responseData.id }}" method="POST">
+                    <!-- @csrf -->
+                    <!-- @method('DELETE') -->
+                    <button class="button" type="button" onclick="deleteGoal({{ responseData.id }})">delete</button>
+                </form>
+            </div>
+        </div>
     </div>
   </template>
 
