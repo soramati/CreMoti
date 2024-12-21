@@ -15,9 +15,10 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         {{-- <link rel="stylesheet" href="{{ asset('/sanitize.css') }}"> --}}
-
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     </head>
-    <body class="font-sans antialiased">
+    <body id="app" class="font-sans antialiased">
+        
         <div class="min-h-screen bg-gray-30">
             @include('layouts.navigation')
 
@@ -31,17 +32,18 @@
             @endif
 
 <div class="top center w-full">
-
     <div class="count_page ">
-    @if($set_goal ==! null)
-
+        @if($set_goal ==! null)
         <div class="count_down">
-           
-            <h1>完了まで：{{$set_goal->howLongTime()}}</h1>
-            <h1>{{$set_goal->howManyDays()}}</h1>
-        
+
+{{-- <small>{{json_encode($set_goal->howLongTime())}}</small> --}}
+<div>
+    <count-down-timer  :deadline="{{ json_encode($set_goal->howLongTime()) }}" />
+    </div>           
+          
             <div class="mt-7">
                 <div class="content ">
+       
                     <form action="/goals/done/{{ $set_goal->id }}" method="POST">
                         @csrf
                         @method('PATCH')
@@ -52,22 +54,18 @@
                     <a  class="top_button" href="/goals/{{ $set_goal->id }}/edit">編集する</a>
                 </div>
             </div>
-         
-            
-   
-        </div>
-
-       
+        </div>     
         
-       
+        
+        
         <div class="card">
-            
             <div>
                 <div class="card_title">
                     <h4>
                         <a href="/goals/{{ $set_goal->id }}">{{ $set_goal->goals_name }}</a>
                     </h4>
                 </div>   
+              
                 <p>期限：{{ $set_goal->formatDate()}}</p>
                 <p>条件：{{ $set_goal->goals_conditions}}</p>
                 <p>ごほうび：{{ $set_goal->goals_reward}}</p>
@@ -90,17 +88,19 @@
             </div>
         </div>
         @else
-        <div class="none_title">
-            <h1 class="">今日は、何をしよう。<div class=""></div></h1>
+        <div id="animation"  class="none_title">
+            <h1 class="">今日は、何をしよう</h1>
             <small>ひとつのタスクを選択しよう</small>
         </div>
         @endif
     </div>
 </div>
 <div class="center create_bar">
+    <test-component></test-component>
     <a href='/goals/create' class="button create create_button" value="新しくつくる">
-    つくる
-    </a>
+        つくる
+        </a>
+
 </div>
 
 <div class="cards_wrapper w-full">
@@ -110,12 +110,17 @@
         @if($goal->goals_is_achieved == 0)
         @if($goal->goals_is_set == 0)
         <div class="">
-
+      
             <div class="card">
                 <div>
                     <div class="card_title">
                         <h4><a href="/goals/{{ $goal->id }}">{{ $goal->goals_name }}</a></h4>
                     </div>   
+                  <p>
+                
+
+                  </p>
+                                  
                     <p>期限：{{ $goal->formatDate()}}</p>
                     <p>条件：{{ $goal->goals_conditions}}</p>
                     <p>ごほうび：{{ $goal->goals_reward}}</p>
@@ -134,8 +139,7 @@
                         @csrf
                         @method('DELETE')
                         <button class="button" type="button" onclick="deleteGoal({{ $goal->id }})">削除する</button>
-                        
-                    </form>
+                                            </form>
                 </div>
 
                 </div>
@@ -204,7 +208,7 @@
 
 
 
-<style>
+<style scoped>
 .cards_wrapper{
    width: 95%;
    margin: 0 auto;
@@ -231,7 +235,7 @@
         /* text-align: center; */
     }
     .count_down{
- color: #333;
+        color: #333;
         font-family: sans-serif;
         font-weight: 550;
         font-family: "Ryo Gothic PlusN";
@@ -240,16 +244,15 @@
 
     }
     .top_card_cover{
-position: absolute;
-top: 0;
-right: 0;
-
- margin:0 2%;
- display:inline-block;
- background:#fff;
- transform:skewX(30deg);
- width:30%;
- height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+         margin:0 2%;
+        display:inline-block;
+        background:#fff;
+        transform:skewX(30deg);
+        width:30%;
+        height: 100%;
     }
     .top{
    padding:3rem 0;
@@ -428,6 +431,7 @@ a:active {
   
 
 </style>
+
 <script>
     function deleteGoal(id) {
         'use strict'
@@ -437,5 +441,3 @@ a:active {
         }
     }
 </script>
-
-</html>

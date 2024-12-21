@@ -9,6 +9,8 @@ use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 
+
+
 class Goal extends Model
 {
     use SoftDeletes;
@@ -28,6 +30,7 @@ class Goal extends Model
         'user_id',
         'goals_user_id',
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -35,54 +38,81 @@ class Goal extends Model
 
     public function getPaginateByLimit(int $limit_count = 10)
     {
-        // updated_atで降順に並べたあと、limitで件数制限をかける
-        // return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
         return $this::with('user')->orderBy('updated_at', 'DESC')->paginate($limit_count);
-        // return $this::with('user')->find(Auth::id())->users()->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
+
     public function resetGoalsSet()
     {
-
         $old_goals = $this::with('user')->find(Auth::id())->goals()->first();
         $old_goals->goals_is_set = 0;
         $old_goals->save();
-
         $this->goals_is_set = 1;
         $this->save();
     }
+
     public function formatDate()
     {
-        $date =  new DateTime($this->goals_deadline);
+        $date = new DateTime($this->goals_deadline);
         $formattedDate = $date->format('Y/m/d G:i');
         return $formattedDate;
-        // return date('Y年m月d日', strtotime($this->goals_deadline));
-
-
     }
-    public function howManyDays()
-    {
-        $today = new DateTime();
-        $deadline = new DateTime($this->goals_deadline);
-        $interval = $today->diff($deadline);
-        // echo $interval->h;
-        $interval->h += $interval->days * 24;
-        if ($interval->invert == 1) {
-            return "The deadline has passed";
-        } else {
-            return $interval->format("(あと%a日)");
-        }
-    }
+
     public function howLongTime()
     {
-        $today = new DateTime();
+        $today = new DateTime("now");
+        $deadline = new DateTime($this->goals_deadline);
+        $started_at = new DateTime($this->started_at);
+
+        $interval = $today->diff($deadline);
+        $interval_full = $started_at->diff($deadline);
+
+
+        //get remaining time
+        $int = 0;
+        $int = $interval->days * 24 * 60 * 60;
+        $int += $interval->h * 60 * 60;
+        $int += $interval->i * 60;
+        $int += $interval->s;
+
+        //get full time
+        $int_full = $interval_full->days * 24 * 60 * 60;
+        $int_full += $interval_full->h * 60 * 60;
+        $int_full += $interval_full->i * 60;
+        $int_full += $interval_full->s;
+
+        $array = array(
+            'today' => $today,
+            'deadline' => $deadline,
+            'invert' => $interval->invert,
+            'int' => $int,
+            'int_full' => $int_full
+        );
+        return $array;
+    }
+    public function getRemainingTime($interval)
+    {
+        $int = $interval->days * 24 * 60 * 60;
+        $int += $interval->h * 60 * 60;
+        $int += $interval->i * 60;
+        $int += $interval->s;
+        return $int;
+    }
+
+
+    public function getFullTime()
+    {
+        $today = new DateTime($this->started_at);
         $deadline = new DateTime($this->goals_deadline);
         $interval = $today->diff($deadline);
-        // echo $interval->h;
-        $interval->h += $interval->days * 24;
+
         if ($interval->invert == 1) {
             return 0;
         } else {
-            return $interval->format("%H時間%I分%S秒");
+            $int = $interval->days * 24 * 60 * 60;
+            $int += $interval->h * 60 * 60;
+            $int += $interval->i * 60;
+            $int += $interval->s;
+            return $int;
         }
     }
 }

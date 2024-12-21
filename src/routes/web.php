@@ -33,15 +33,14 @@ Route::middleware('auth')->group(function () {
 });
 Route::controller(UserController::class)->middleware(['auth'])->group(function () {
     Route::get('/', 'index')->name('index');
-    // Route::get('/admin', 'admin')->name('admin');
 });
 
 Route::get('/admin', [UserController::class, 'admin'])->middleware(['auth', 'admin'])->name('admin');
 
 Route::controller(GoalController::class)->middleware(['auth'])->group(function () {
-    // Route::get('/', 'index')->name('index');
     Route::patch('/goals/reset', 'resetGoalsSet')->name('resetGoalsSet');
     Route::post('/goals', 'store')->name('store');
+
     Route::get('/goals/create', 'create')->name('create');
     Route::patch('/goals/done/{goal}', 'done')->name('done');
     Route::patch('/goals/set/{goal}', 'set')->name('set');
@@ -51,16 +50,7 @@ Route::controller(GoalController::class)->middleware(['auth'])->group(function (
     Route::get('/goals/{goal}/edit', 'edit')->name('edit');
 });
 
-// Route::get('/welcome', function () {
 
-//     // return view('index');
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 Route::get('/admin', [App\Http\Controllers\UserController::class, 'admin'])->middleware(['auth', 'verified'])->name('admin');
 

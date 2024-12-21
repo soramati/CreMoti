@@ -12,7 +12,7 @@
 </head>
 
 
-<div id="custom-app">
+<div id="app">
     <admin-page> </admin-page>
 </div>
 <h1 class="title">goals</h1>

@@ -63,6 +63,7 @@ class GoalController extends Controller
         Goal::where('user_id', Auth::id())->update(['goals_is_set' => 0]);
         //選択されたgoalのgoals_is_setを1にする
         $goal->goals_is_set = 1 - $goal->goals_is_set;
+        $goal->started_at = now();
         $goal->save();
         return redirect('/');
     }

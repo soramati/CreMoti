@@ -20,7 +20,7 @@
 </head>
 
 <div class="page">
-
+ 
     <div class="center">
         <a href='/goals/create'>create</a>
         
@@ -100,92 +100,7 @@
 
 
     <style>
-        .page{
-            width: 95%;
-            margin: 0 auto;
-        }
-        .center {
-            display: flex;
-            justify-content: center;
-        }
 
-        .top {
-            display: flex;
-            justify-content: center;
-        }
-
-        .col {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .row {
-            display: flex;
-            align-content: space-around;
-            width: 100%;
-        }
-
-
-
-        .card {
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: flex-start;
-            border: 1px solid #333;
-            width: 300px;
-        }
-
-        .content {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .content_goal {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .edit {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .back {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .goal {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .title {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .body {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .title__error {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .body__error {
-            display: flex;
-            justify-content: space-around;
-        }
     </style>
     <script>
         function deleteGoal(id) {

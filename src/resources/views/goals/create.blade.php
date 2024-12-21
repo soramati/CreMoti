@@ -44,12 +44,28 @@
                 <label for="title" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">タイトル</label>
                 <p class="title__error" style="color:red">{{ $errors->first('goal.goals_name') }}</p>
             </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <input type="datetime-local" 
-                name="goal[goals_deadline]"
-                value="{{ old('goal.goals_deadline') }}" id="date" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                <label for="date" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">達成したい日</label>
+            {{-- モーダル --}}
+            <div id="hidden" class="hidden">
+                <div class="modal_content">
+                    <div class="modal_text">
+                        <h1>いつまでに達成したいですか?</h1>
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="datetime-local" 
+                            name="goal[goals_deadline]"
+                            value="{{ old('goal.goals_deadline') }}" id="date" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <label for="date" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">達成したい日</label>
+                        </div>
+                        <div class="btn_wrapper">
+                            <button type="submit" class="text-white bg-green-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">スタート</button>
+                            <button type="submit" class="text-white bg-gray-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">あとでやる</button>
+                        </div>
+                    </div> 
+                    <button id="modal_btn" onclick="toggleModal()">トグル</button>
+                </div>  
             </div>
+                       {{-- モーダルここまで --}}
+            
+
             <div class="relative z-0 w-full mb-5 group">
                 <input type="text" 
                 name="goal[goals_conditions]" 
@@ -76,10 +92,24 @@
         </div>
     </form>
 </div>
+<button id="modal_btn" onclick="toggleModal()">トグル</button>
 </body>
-      
+<script>
   
+ 
+ function toggleModal(){
+    const modal = document.getElementById('hidden');
+    // modal.classList.toggle('hidden');
+    modal.classList.toggle('day_modal');
+    console.log('クリックされました');
+ }
+</script>
+    
+
 <style scoped>
+    .hidden {
+    display: none;
+    }
 .create_page{
     width: 95%;
 
@@ -94,6 +124,49 @@
     /* align-items: center; */
 }
 
+.day_modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.3);
+
+
+
+    
+    position: absolute;
+    top: 0;
+    left: 0%;
+
+}
+.modal_content{
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    z-index: 100;
+}
+.modal_text{
+    width: 60%;
+    height: 60%;
+
+}
+.modal_text h1{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+.btn_wrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
     
 </style>
 </html>
