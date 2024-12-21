@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* モーダル */
+.day_modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.3);
+
+
+
+    
+    position: absolute;
+    top: 0;
+    left: 0%;
+
+}
+.modal_content{
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    z-index: 100;
+}
+.modal_text{
+    width: 60%;
+    height: 60%;
+
+}
+.modal_text h1{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* モーダルここまで */
 
 .cards_wrapper {
     width: 95%;

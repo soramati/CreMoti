@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserController;
+use App\Models\Goal;
+use Spatie\FlareClient\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,12 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// ここからApi
+Route::controller(GoalController::class)->middleware(['auth'])->group(function () {
+    Route::get('/testApi', 'apiindex')->name('index');
+});
+// ここまでApi
 
 Route::get('/', function () {
     return view('index');

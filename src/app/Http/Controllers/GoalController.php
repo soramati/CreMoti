@@ -77,4 +77,14 @@ class GoalController extends Controller
     {
         return redirect('/');
     }
+
+    public function apiindex()
+    {
+        $memberList = [
+            ['id' => 1, 'name' => 'hoge'],
+            ['id' => 2, 'name' => 'fuga'],
+            ['id' => 3, 'name' => 'piyo'],
+        ];
+        return $memberList;
+    }
 }

@@ -196,6 +196,9 @@
             @endforeach
         </div>
   
+
+        <create-modal > 
+        </create-modal>
 </div>
 
 

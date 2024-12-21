@@ -1,6 +1,8 @@
   <template>
     <div>
       <div>
+        <p>{{ responseData}}</p>
+        <p>{{ responseData[1].name}}</p>
         <graph-doughnut  :time="time" :key="time" :start="deadline.int_full" />
       </div>
     </div>
@@ -21,12 +23,15 @@
         m: 0,
         d: 0,
         s: 0,
-        h: 0
+        h: 0,
+        responseData: [],
 
       };
     },
 
+  
     mounted() {
+      this.getData();
       setInterval(() => {
         this.time = this.time - 1;
         this.s = this.time % 60;
@@ -45,7 +50,18 @@
         console.log(this.deadline);
         console.log(this.deadline.days);
         return this.deadline.int;
-    }
+    },
+    getData() {
+            axios.get('/testApi', {})
+            .then(response => {
+                this.responseData = response.data;
+            })
+            .catch(error => {
+                alert('API ERROR');
+            })
+            .finally()
+        },
+
 
     },
     props: {
