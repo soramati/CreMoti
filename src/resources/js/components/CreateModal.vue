@@ -2,12 +2,14 @@
   <div>
     <h2>{{ responseData }}</h2>
    <p> {{ showModal }}</p>
-    <button @click="getData">testApi</button>
+    <button @click="getData">API</button>
+    <button @click="getData">API</button>
+    <button @click="getData">API</button>
 
     <button @click="showModal = !showModal">もーだる</button>
     <div>
       
-      <div v-if="showModal" @click="toggleModal" class="day_modal">
+      <div v-if="showModkaal" @click="toggleModal" class="day_modal">
         <div class="modal_content">
           <div class="modal_text">
             <h1>いつまでに達成したいですか?</h1>

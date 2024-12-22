@@ -24,6 +24,9 @@ use Spatie\FlareClient\Api;
 Route::controller(UserController::class)->middleware(['auth'])->group(function () {
     Route::get('/testApi', 'apiindex')->name('index');
 });
+Route::controller(GoalController::class)->middleware(['auth'])->group(function () {
+    Route::get('/settime', 'apiindex')->name('index');
+});
 // ここまでApi
 
 Route::get('/', function () {
