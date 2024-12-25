@@ -1,7 +1,7 @@
   <template>
     <div>
       <div>
-        <!-- <p>{{ responseData}}</p> -->
+
         <graph-doughnut :time="time" :key="time" :start="deadline.int_full" />
       </div>
 
@@ -13,37 +13,29 @@
               <a href="/goals/{{ responseData.id }}">{{ responseData.goals_name }}</a>
             </h4>
           </div>
+          <p>id{{ responseData.id }}</p>
           <p>期限：{{ responseData.goals_deadline }}</p>
           <p>条件：{{ responseData.goals_conditions }}</p>
           <p>ごほうび：{{ responseData.goals_reward }}</p>
         </div>
         <div class="content mt-10">
-          <form action="/goals/set/{{ responseData.id }}" method="POST">
-            <!-- @csrf -->
-            <!-- @method('PATCH') -->
-            <input class="button" type="submit" value="もとに戻す">
-          </form>
+      
+          <button class="button" type="button" @click="resetGoal()">あとでやる</button>
+    
         </div>
         <div class="content">
-          <form action="/goals/{{ responseData.id }}" id="form_{{ responseData.id }}" method="POST">
-            <!-- @csrf -->
-            <!-- @method('DELETE') -->
-            <button class="button" type="button" onclick="deleteGoal({{ responseData.id }})">delete</button>
-          </form>
+
+            <button class="button" type="button" @click="deleteGoal()">delete</button>
+      
         </div>
       </div>
 
-
-
-
-
-
-      
     </div>
   </template>
 
   <script>
   import { ref } from 'vue';
+  import axios from 'axios';
 
   export default {
     data() {
@@ -75,8 +67,6 @@
         this.count++;
       },
       getTime() {
-        console.log(this.deadline);
-        console.log(this.deadline.days);
         return this.deadline.int;
       },
       getData() {
@@ -86,6 +76,27 @@
           })
           .catch(error => {
             alert('API ERROR');
+          });
+      },
+      deleteGoal() {
+        axios.post('/destroy/' + this.responseData.id)
+          .then(response => {
+            alert('削除しました');
+            window.location.href = '/';
+          })
+          .catch(error => {
+            alert(error);
+          });
+
+      },
+      resetGoal() {
+        axios.post('/reset/' + this.responseData.id)
+          .then(response => {
+            alert('リセットしました');
+            window.location.href = '/';
+          })
+          .catch(error => {
+            alert(error);
           });
       },
     },

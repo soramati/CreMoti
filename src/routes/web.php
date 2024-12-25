@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserController;
-use App\Models\Goal;
-use Spatie\FlareClient\Api;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,20 +19,30 @@ use Spatie\FlareClient\Api;
 |
 */
 
+// 本の削除
+Route::post('/destroy/{id}', [ApiController::class, 'destroy'])->name('destroy');
+Route::post('/reset/{id}', [ApiController::class, 'reset'])->name('reset');
+Route::controller(ApiController::class)->middleware(['auth'])->group(function () {
+    Route::get('/api/get', 'apiindex');
+    Route::post('/api/store', 'apiStore');
+    Route::delete('/goals/{goal}', 'apiDelete');
+});
 // ここからApi
+Route::controller(UserController::class)->middleware(['auth'])->group(function () {
+    Route::get('/getApi', 'index')->name('index');
+});
+
 Route::controller(UserController::class)->middleware(['auth'])->group(function () {
     Route::get('/testApi', 'apiindex')->name('index');
 });
 Route::controller(GoalController::class)->middleware(['auth'])->group(function () {
     Route::get('/settime', 'apiindex')->name('index');
+    Route::post('/api/store/goal', 'apiStore')->name('store');
 });
+
 // ここまでApi
 
-
-
-// Route::get('/dashboard', function () {
-//     return view('index');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/api', 'TestApiController@store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,6 +51,7 @@ Route::middleware('auth')->group(function () {
 });
 Route::controller(UserController::class)->middleware(['auth'])->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/dashboard', 'index')->name('index');
 });
 
 Route::get('/admin', [UserController::class, 'admin'])->middleware(['auth', 'admin'])->name('admin');
@@ -49,7 +59,6 @@ Route::get('/admin', [UserController::class, 'admin'])->middleware(['auth', 'adm
 Route::controller(GoalController::class)->middleware(['auth'])->group(function () {
     Route::patch('/goals/reset', 'resetGoalsSet')->name('resetGoalsSet');
     Route::post('/goals', 'store')->name('store');
-
     Route::get('/goals/create', 'create')->name('create');
     Route::patch('/goals/done/{goal}', 'done')->name('done');
     Route::patch('/goals/set/{goal}', 'set')->name('set');

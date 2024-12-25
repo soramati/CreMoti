@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Goal;
 use App\Http\Requests\GoalRequest;
+
+
 use Illuminate\Support\Facades\Auth;
 
 class GoalController extends Controller
@@ -37,6 +39,7 @@ class GoalController extends Controller
         $input = $request['goal'];
         $input += ['user_id' => $request->user()->id];
         $goal->fill($input)->save();
+
         return redirect('/');
     }
     public function edit(Goal $goal)
