@@ -1,6 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.count_down {
+    color: #333;
+    font-family: sans-serif;
+    font-weight: 550;
+    font-family: "Ryo Gothic PlusN";
+    color: #FFF;
+    font-size: 1.5rem;
+    width: 95%;
+
+}
+
+.nav_span{
+    width: 20px;
+  }
+canvas {
+    width: 100%;
+}
+
+
 #modal_animation {
     animation: fade-in 1s;
     animation-fill-mode: forwards;
@@ -352,6 +371,77 @@ a:active {
     font-style: normal;
     font-weight: 800;
 }
-
+.top {
+    padding: 3rem 0;
+    background: #5CE5B4;
+    height: 100vh;
+}
 
 /* admin */
+
+.button-29 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 250px;
+    margin:0 auto;
+    padding: .9em 2em;
+    overflow: hidden;
+    border: 1px solid #5ce5b4;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #5ce5b4;
+    font-size: 1em;
+}
+
+.button-29:hover {
+    background-color: transparent;
+    color: #fff;
+}
+
+.button-29::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 0;
+    height: 100%;
+    background-color: #5ce5b4;
+    content: '';
+    transition: width .3s ease;
+}
+
+.button-29:hover::before {
+    width: 100%;
+}
+.button-30 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 250px;
+    margin:0 auto;
+    padding: .9em 2em;
+    border: 1px solid #5ce5b4;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #5ce5b4;
+    font-size: 1em;
+}
+
+.button-30:hover {
+    animation: anima-button-30 1s;
+}
+
+@keyframes anima-button-30 {
+    0% {
+        box-shadow: 0 0 0 0 rgb(255, 255, 255)
+    }
+    100% {
+        box-shadow: 0 0 0 1.2em rgb(0 0 0 / 0%);
+    }
+}
+.top_span{
+    height: 4rem;
+}

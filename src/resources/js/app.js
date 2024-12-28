@@ -7,7 +7,9 @@ import CreateModal from './components/CreateModal.vue';
 import HeaderNav from './components/HeaderNav.vue';
 import TaskCard from './components/TaskCard.vue';
 import CreatePage from './components/CreatePage.vue';
-
+import GoalList from './components/GoalList.vue';
+import ShereTimer from './components/ShereTimer.vue';
+import TopPage from './components/TopPage.vue';
 
 
 const app = createApp({});
@@ -19,4 +21,7 @@ app
     .component('header-nav', HeaderNav)
     .component('task-card', TaskCard)
     .component('create-page', CreatePage)
+    .component('goal-list', GoalList)
+    .component('shere-timer', ShereTimer)
+    .component('top-page', TopPage)
     .mount('#app');

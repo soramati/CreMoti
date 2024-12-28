@@ -74,4 +74,12 @@ class User extends Authenticatable
             $goal->save();
         }
     }
+    public function getShering($userid)
+    {
+        $data = $this::with('goals')->find($userid)->goals()->orderBy('updated_at', 'DESC')->where('goals_is_set', true)->where('goals_is_achieved', 0)->first();
+        return [
+            'data' => $data,
+            'time' => $data->howLongTime(),
+        ];
+    }
 }

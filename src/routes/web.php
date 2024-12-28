@@ -20,12 +20,14 @@ use App\Http\Controllers\ApiController;
 */
 
 // 本の削除
+Route::get('/shere/{userid}', [UserController::class, 'shere'])->name('shere');
 Route::post('/destroy/{id}', [ApiController::class, 'destroy'])->name('destroy');
 Route::post('/reset/{id}', [ApiController::class, 'reset'])->name('reset');
 Route::controller(ApiController::class)->middleware(['auth'])->group(function () {
-    Route::get('/api/get', 'apiindex');
+    Route::get('/api/get', 'apiIndex');
     Route::post('/api/store', 'apiStore');
     Route::delete('/goals/{goal}', 'apiDelete');
+    Route::post('/api/start/{id}', 'apiStart');
 });
 // ここからApi
 Route::controller(UserController::class)->middleware(['auth'])->group(function () {

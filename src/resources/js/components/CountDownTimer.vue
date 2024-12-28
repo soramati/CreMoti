@@ -1,35 +1,32 @@
   <template>
-    <div>
+    <div class="top_page">
       <div>
-
-        <graph-doughnut :time="time" :key="time" :start="deadline.int_full" />
+        <graph-doughnut :time="time" :key="time" :start="deadline.int_full"  />
       </div>
-
-
       <div class="card">
-        <div>
+             <div>
           <div class="card_title">
             <h4>
               <a href="/goals/{{ responseData.id }}">{{ responseData.goals_name }}</a>
             </h4>
           </div>
-          <p>id{{ responseData.id }}</p>
-          <p>期限：{{ responseData.goals_deadline }}</p>
+          <!-- <p>id{{ responseData.id }}</p> -->
+          <p>期限：{{ formData(responseData.goals_deadline) }}</p>
           <p>条件：{{ responseData.goals_conditions }}</p>
           <p>ごほうび：{{ responseData.goals_reward }}</p>
         </div>
-        <div class="content mt-10">
-      
-          <button class="button" type="button" @click="resetGoal()">あとでやる</button>
-    
+        <div class="card_footer">
+          <button @click="toggleMenu">➖</button>
         </div>
-        <div class="content">
-
+        <div v-show="isShowMenu" class="pullMenu">
+          <div class="content mt-10">
+            <button class="button" type="button" @click="resetGoal()">あとでやる</button>
+          </div>
+          <div class="content">
             <button class="button" type="button" @click="deleteGoal()">delete</button>
-      
+          </div>
         </div>
       </div>
-
     </div>
   </template>
 
@@ -49,9 +46,11 @@
         s: 0,
         h: 0,
         responseData: [],
+        isShowMenu: false,
       };
     },
     mounted() {
+
       this.getData();
       setInterval(() => {
         this.time = this.time - 1;
@@ -63,6 +62,21 @@
       }, 1000);
     },
     methods: {
+      toggleMenu() {
+        this.isShowMenu = !this.isShowMenu;
+      },
+      formData(date) {
+
+        let dateData = new Date(date);
+        let year = dateData.getFullYear();
+        let month = dateData.getMonth() + 1;
+        let day = dateData.getDate();
+        let hour = dateData.getHours();
+        let min = dateData.getMinutes();
+        let sec = dateData.getSeconds();
+        return year + '/' + month + '/' + day+ " " + hour + ':' + min;
+
+      },
       counter() {
         this.count++;
       },
@@ -87,7 +101,6 @@
           .catch(error => {
             alert(error);
           });
-
       },
       resetGoal() {
         axios.post('/reset/' + this.responseData.id)
@@ -99,6 +112,7 @@
             alert(error);
           });
       },
+
     },
     props: {
       deadline: {
@@ -114,11 +128,32 @@
   </script>
 
   <style scoped>
+  .top_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+
+  }
+  @media  (max-width:768px){
+    .top_page{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
   .btn {
     background-color: blue;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
+  }
+
+  .card_footer {
+ width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   </style>

@@ -36,4 +36,13 @@ class UserController extends Controller
         $memberList = $user->getSetPaginateByLimit();
         return $memberList;
     }
+
+    public function shere($userid)
+    {
+        $user = User::find($userid);
+
+        return view('users/shere')->with([
+            'set_goal' => $user->getShering($userid)
+        ]);
+    }
 }

@@ -2,36 +2,32 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Title, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
 import { defineProps, onMounted } from 'vue'
-import {ref }from 'vue'
+import { ref } from 'vue'
 
 ChartJS.register(ArcElement, Tooltip, Title, Legend)
 
-let props =  defineProps(['time', 'start']);
+let props = defineProps(['time', 'start', 'text']);
 let time = ref(props.time);
 let start = ref(props.start);
 
-let y =  time.value / start.value * 100;
-let x = (start.value -time.value) / start.value * 100;
+let y = time.value / start.value * 100;
+let x = (start.value - time.value) / start.value * 100;
 
+let s = time.value % 60;
+let m = Math.floor(time.value / 60);
+m = m % 60;
+let h = Math.floor(time.value / 60 / 60);
+let d = Math.floor(time.value / 60 / 60 / 24);
+let text = `${h}時間${m}分${s}秒`;
+let day = `(${d}days)`;
 
-
-
-      let s = time.value % 60;
-      let m = Math.floor(time.value / 60);
-      m = m % 60;
-      let h = Math.floor(time.value / 60 / 60);
-      let d = Math.floor(time.value / 60 / 60 / 24);
-  let text = `${h}時間${m}分${s}秒`;
-  let day = `(${d}days)`;
 // チャート用のデータ
 const data = {
-
   datasets: [{
-    data: [ x,y],
-        backgroundColor: [
+    data: [x, y],
+    backgroundColor: [
       'RGB(255, 255, 255)',
       'RGB(91, 229, 180)',
-
     ],
   }]
 };
@@ -48,11 +44,11 @@ const options = {
   plugins: {
     title: {
       display: true,
-      text: 'Time Remaining',
-
+      text: '残り時間',
       font: {
         weight: 'bold',
-        size: 16},
+        size: 16
+      },
     },
     legend: {
       display: true,
@@ -66,17 +62,17 @@ const options = {
     },
   }
 }
+
 // ドーナツチャートの中央に表示させるプラグインを定義する
 const ratioText = {
   id: 'ratio-text',
-  beforeDraw (chart: any) {
+  beforeDraw(chart: any) {
     const { ctx, chartArea: { top, width, height } } = chart
     ctx.save()
     //チャート描画部分の中央を指定
     ctx.fillRect(width / 2, top + (height / 2), 0, 0)
     //フォントのスタイル指定
-  
-    ctx.font = 'bold 2rem Roboto'
+    ctx.font = 'bold 1.5rem Roboto'
     ctx.fillStyle = '#fff'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
@@ -85,23 +81,28 @@ const ratioText = {
   }
 }
 </script>
+
 <template>
   <div>
     <div class="doughnut-graph">
-    <!-- ドーナツチャートの描画 -->
-      <Doughnut
-	:data="data"
-	:options="options"
-   :plugins="[ratioText]"
-      />
-     </div>
+      <!-- ドーナツチャートの描画 -->
+      <Doughnut class="" :data="data" :options="options" :plugins="[ratioText]" />
+    </div>
   </div>
 </template>
-<style >
+
+<style>
 .doughnut-graph {
   width: 100%;
   height: 100%;
-  min-width: 400px;
-  min-height: 400px;
+ 
+
 }
+
+@media (max-width: 768px) {
+  .doughnut-graph {
+    min-height: 100dvw;
+  }
+}
+
 </style>

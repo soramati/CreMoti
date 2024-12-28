@@ -1,4 +1,4 @@
-<div class="icon-01" >
+<div onclick="home()" class="icon-01" >
 </div>
 
 <style>
@@ -9,3 +9,10 @@
    background-image: url("{{asset('img/logo01.webp')}} ");
 }
 </style>
+
+<script>
+
+function home() {
+    location.href = '/';
+}
+</script>

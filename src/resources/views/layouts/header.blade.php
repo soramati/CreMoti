@@ -1,15 +1,18 @@
 <header>
-    <div class="logo_container">
+
+
+    <div onclick="goHome()" class="logo_container">
       <h1 class="logo_top" >Creator's</h1>
       <h1 class="logo_bottom">motivation</h1>
     </div>
+
         <!-- Responsive Settings Options -->
       
         <div class="right_container">
             <x-responsive-nav-link :href="route('profile.edit')">
                 {{ __('Profile') }}
             </x-responsive-nav-link>
-            <span></span>
+            <span class="nav_span"></span>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
 
@@ -71,3 +74,9 @@
     
     
     </style>
+
+    <script>
+      function goHome() {
+        location.href = '/';
+      }
+    </script>
