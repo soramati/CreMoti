@@ -28,6 +28,7 @@ Route::controller(ApiController::class)->middleware(['auth'])->group(function ()
     Route::post('/api/store', 'apiStore');
     Route::delete('/goals/{goal}', 'apiDelete');
     Route::post('/api/start/{id}', 'apiStart');
+    Route::post('done/{id}', 'apiDone');
 });
 // ここからApi
 Route::controller(UserController::class)->middleware(['auth'])->group(function () {

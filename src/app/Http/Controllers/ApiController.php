@@ -74,4 +74,13 @@ class ApiController extends Controller
             'message' => 'Data start successfully',
         ], 200);
     }
+    public function apiDone($id)
+    {
+        $task = Goal::find($id);
+        $task->goals_is_achieved = 1;
+        $task->save();
+        return response()->json([
+            'message' => 'Data done successfully',
+        ], 200);
+    }
 }

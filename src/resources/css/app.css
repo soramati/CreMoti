@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+#app{
+  
+
+    background-color: #85FFBD;
+    background-image: linear-gradient(326deg, #5CE5B4 0%, #85FFBD 100%);
+    height: 100%;
+    z-index: -100;
+}
 .count_down {
     color: #333;
     font-family: sans-serif;
@@ -166,13 +174,11 @@ canvas {
 
 .top {
     padding: 3rem 0;
-    background: #5CE5B4;
-
-    background-color: #85FFBD;
-background-image: linear-gradient(326deg, #5CE5B4 0%, #85FFBD 100%);
 
     min-height: 25rem;
+    padding: 3rem 0;
 
+    height: 100vh;
 }
 
 .count_page {
@@ -371,11 +377,6 @@ a:active {
     font-style: normal;
     font-weight: 800;
 }
-.top {
-    padding: 3rem 0;
-    background: #5CE5B4;
-    height: 100vh;
-}
 
 /* admin */
 
@@ -420,20 +421,43 @@ a:active {
     justify-content: center;
     align-items: center;
     position: relative;
-    width: 250px;
+    /* max-width: 250px; */
+    /* width: 100%; */
     margin:0 auto;
-    padding: .9em 2em;
-    border: 1px solid #5ce5b4;
+    padding: .6em 2em;
+    /* border: 1px solid #5ce5b4; */
     border-radius: 5px;
     background-color: #fff;
     color: #5ce5b4;
-    font-size: 1em;
+    font-size: max(2vw, 16px);
+}
+.nokori{
+
+}
+.d-flex{
+    display: flex;
+    align-items: baseline;
+
 }
 
 .button-30:hover {
     animation: anima-button-30 1s;
 }
+.nokori_box p{
+    text-align: center;
+    color: #fff;
+    opacity: 0.9;
 
+}
+.nokoei_small{
+    font-size: max(2dvw, 16px);
+    
+    font-weight: 800;
+}
+.sec{
+    font-size: max(10dvw, 24px);
+    font-weight: 800;
+}
 @keyframes anima-button-30 {
     0% {
         box-shadow: 0 0 0 0 rgb(255, 255, 255)

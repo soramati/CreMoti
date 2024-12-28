@@ -26,8 +26,8 @@ const data = {
   datasets: [{
     data: [x, y],
     backgroundColor: [
-      'RGBA(255, 255, 255,0.8)',
-      'RGBA(255, 255, 255,0)'
+      'RGB(255, 255, 255)',
+      'RGB(91, 229, 180)',
     ],
   }]
 };

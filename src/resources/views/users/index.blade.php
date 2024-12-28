@@ -24,7 +24,7 @@
                     <div>
                         <count-down-timer :deadline="{{ json_encode($set_goal->howLongTime()) }}" />
                     </div>
-                    <div class="mt-7">
+                    {{-- <div class="mt-7">
                         <div class="content">
                             <form action="/goals/done/{{ $set_goal->id }}" method="POST">
                                 @csrf
@@ -35,7 +35,7 @@
                         <div class="edit">
                             <a class="top_button" href="/goals/{{ $set_goal->id }}/edit">編集する</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 @else
                 <top-page />

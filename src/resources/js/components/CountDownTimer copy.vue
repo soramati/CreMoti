@@ -1,42 +1,37 @@
   <template>
     <div class="top_page">
       <div>
-    
-        <!-- <h1 class="time"> {{timeMsg}}</h1> -->
-        <div class="nokori_box ">
-          <p class="nokoei_small">{{responseData.goals_name}}<br>まで残り...</p>
-          <div class="sec_box d-flex">
-            <p class="nokori sec">{{nokoriSec}}</p>
-            <small class="tani">秒</small>
+        <graph-doughnut :time="time" :key="time" :start="deadline.int_full"  />
+      </div>
+      <div class="card">
+             <div>
+          <div class="card_title">
+            <h4>
+              <a href="/goals/{{ responseData.id }}">{{ responseData.goals_name }}</a>
+            </h4>
           </div>
-          <p  class="nokori parsent nokoei_small">{{nokoriParsent}}%</p>
-          <p class="nokori min nokoei_small">{{nokoriMin}}分</p>
-          <p class="nokori week nokoei_small">{{nokoriWeek}}週間</p>
-          <p class="nokori day nokoei_small">{{nokoriDay}}日</p>
-
+          <!-- <p>id{{ responseData.id }}</p> -->
+          <p>期限：{{ formData(responseData.goals_deadline) }}</p>
+          <p>条件：{{ responseData.goals_conditions }}</p>
+          <p>ごほうび：{{ responseData.goals_reward }}</p>
         </div>
-        <graph-doughnut :time="time" :key="time" :start="getCreatedToDeadline()"  />
-      </div>
-    </div>
-   
-
-    
-      <button @click="doneApi" class="button-30 done_btn">できた！</button>
-
-  
-    <!-- <button @click="toggleMenu">➖</button> -->
-    <div v-show="isShowMenu" class="pullMenu">
-      <div class="content mt-10">
-        <button class="button" type="button" @click="resetGoal()">あとでやる</button>
-      </div>
-      <div class="content">
-        <button class="button" type="button" @click="deleteGoal()">delete</button>
+        <div class="card_footer">
+          <button @click="toggleMenu">➖</button>
+        </div>
+        <div v-show="isShowMenu" class="pullMenu">
+          <div class="content mt-10">
+            <button class="button" type="button" @click="resetGoal()">あとでやる</button>
+          </div>
+          <div class="content">
+            <button class="button" type="button" @click="deleteGoal()">delete</button>
+          </div>
+        </div>
       </div>
     </div>
   </template>
 
   <script>
-  import { ref,computed } from 'vue';
+  import { ref } from 'vue';
   import axios from 'axios';
 
   export default {
@@ -52,32 +47,7 @@
         h: 0,
         responseData: [],
         isShowMenu: false,
-        start: ref(0),
-        nowPercent: 0,
       };
-    },
-    computed: {
-
-      nokoriParsent() {
-        return Math.ceil(this.time / this.getCreatedToDeadline() * 100 * 100) / 100;
-      },
-      nokoriSec() {
-        return this.time;
-      },
-      nokoriMin() {
-        return Math.floor(this.time / 60);
-      },
-      nokoriDay() {
-        return Math.floor(this.time / 60 / 60 / 24);
-      },
-      nokoriWeek() {
-        return Math.floor(this.time / 60 / 60 / 24 / 7);
-      },
-      timeMsg() {
-        let timeMsg = `${this.d}日${this.h}時間${this.m}分${this.s}秒`;
-
-        return timeMsg;
-      }
     },
     mounted() {
 
@@ -90,28 +60,8 @@
         this.d = Math.floor(this.time / 60 / 60 / 24);
         console.log(this.d);
       }, 1000);
-      
     },
     methods: {
-      doneApi() {
-        axios.post('/done/' + this.responseData.id)
-          .then(response => {
-            alert('おめでとうございます！');
-            window.location.href = '/';
-          })
-          .catch(error => {
-            alert(error);
-          });
-      },
-      getCreatedToDeadline(){
-        const date = new Date(this.responseData.goals_deadline);
-        const now = new Date(this.responseData.created_at);
-        const diff = date - now;
-      const diffSec = diff / 1000;
-      return Math.floor(diffSec);
-      },
-        
-      
       toggleMenu() {
         this.isShowMenu = !this.isShowMenu;
       },
@@ -205,8 +155,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .done_btn{
-    margin-top: 2rem;
   }
   </style>
