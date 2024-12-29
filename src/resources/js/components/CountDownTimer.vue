@@ -16,11 +16,11 @@
             <p class="nokori day nokoei_small">{{nokoriDay}}日</p>
             <span></span>
             <div class="reward_box">
-              <p class="nokori day nokoei_small">ごほうび:</p>
+              <p class="nokori day nokoei_small">ごほうび：</p>
               <p class="nokori day nokoei_small">{{data.goals_reward}}</p>
-
+             
             </div>
-            <a :href=shereUrl>{{shereUrl}}</a>
+        
           </template>
           <template v-else>
             
@@ -35,12 +35,13 @@
         <graph-doughnut :time="time" :key="time" :start="getCreatedToDeadline()"  />
       </div>
     </div>
-   
-
+    
+    
     <template  v-if="!isDone">
-
+      
       <button @click="doneApi" class="button-30 done_btn">できた！</button>
-      <button @click="toggleShowModal()" class="button-30 done_btn">編集する</button>
+      <button @click="toggleShowModal()" class="button-30 done_btn shereLink">編集する</button>
+      <a  class="button-30 shereLink" :href=shereUrl>公開する</a>
     </template>
       <!-- <button @click="toggleMenu">➖</button> -->
       <div v-show="isShowMenu" class="pullMenu">
@@ -120,8 +121,7 @@
         this.setTime(1);
 
       }, 1000);
-      // console.log(this.responseData);
-      console.log('this.responseData');
+
     },
     methods: {
       setTime(int){
@@ -213,8 +213,7 @@
           });
       },
       toggleShowModal() {
-        console.log('toggleShowModal');
-        console.log(this.responseData);
+
         this.showModal = !this.showModal;
       },
       resetGoal() {

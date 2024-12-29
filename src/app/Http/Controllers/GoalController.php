@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Goal;
 use App\Http\Requests\GoalRequest;
+use Encore\Admin\Grid\Filter\Where;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,19 @@ class GoalController extends Controller
         return view('goals.show')->with(['goal' => $goal]);
         //'goal'はbladeファイルで使う変数。中身は$goalはid=1のgoalインスタンス。
     }
+    public function shere($hashID)
+    {
+        $goal =  [];
+        $goal =  Goal::where('hashed_id', $hashID)->first();
+
+
+
+        return view('goals/shere')->with([
+            'goal' => $goal,
+
+        ]);
+    }
+
 
 
     public function create()

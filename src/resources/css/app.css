@@ -430,6 +430,13 @@ a:active {
     color: #5ce5b4;
     font-size: 1.3rem;
 }
+.button-30:disabled {
+
+    color: #fff;
+    background-color: #b0aeaeb6;
+    
+    }
+
 .nokori{
 
 }
@@ -485,6 +492,12 @@ a:active {
     align-items: center;
     z-index: 50;
 }
+.shereLink{
+width: 164px;
+height: 30px;
+font-size: 1rem;
+margin-top: 1rem;
+}
 @media screen and (max-width: 768px) {
     .count_page {
         width: 100%;
@@ -498,4 +511,10 @@ a:active {
     .sec{
         font-size: 4.4rem;
     }
+    .shereLink{
+        width: 104px;
+        height: 20px;
+        font-size: 1rem;
+        margin-top: 1rem;
+        }
 }

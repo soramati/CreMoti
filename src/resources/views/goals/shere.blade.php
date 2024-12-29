@@ -8,19 +8,21 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('/main.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/main.css') }}"> --}}
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- <link rel="stylesheet" href="{{ asset('/sanitize.css') }}"> --}}
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
-<body id="app" class="font-sans antialiased">
-    <h1>シェアハピ</h1>
 
-     
+<body id="app" class="font-sans antialiased" >
+       <div  class=" min-h-screen bg-gray-30 ">
+        <shere-page  data="{{ json_encode($goal)}}"/>
+    </div>
 </body>
 </html>
 <style scoped>
+
     .cards_wrapper {
         width: 95%;
         margin: 0 auto;
@@ -69,19 +71,7 @@
         background: #5CE5B4;
         min-height: 25rem;
     }
-    .count_page {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    @media screen and (max-width: 768px) {
-        .count_page {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-    }
+
     p, h4 {
         color: #333;
         font-family: sans-serif;
@@ -213,9 +203,7 @@
     }
 </style>
 <script>
-    function consoleLog(obj) {
-        console.log(obj);
-    }
+
     function deleteGoal(id) {
         'use strict'
         if (confirm('削除すると復元できません。\n本当に削除しますか？')) {

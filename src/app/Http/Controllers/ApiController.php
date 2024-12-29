@@ -48,10 +48,9 @@ class ApiController extends Controller
         $goal->goals_conditions = $request->goals_conditions;
         $goal->goals_reward = $request->goals_reward;
         $goal->goals_is_set = $request->goals_is_set;
-        // $goal->hashed_id = Hash::make($request->id);
-        $str = strval($request->id);
-        $goal->hashed_id = base64_encode($str);
-        // $goal->hashed_id = hash('sha256', $request->id);
+        // urlにするときスラッシュが邪魔なので削除
+        $goal->hashed_id = str_replace('/', '', Hash::make($goal->id));
+
 
         $goal->user_id = Auth::id();
         $goal->save();
@@ -113,5 +112,13 @@ class ApiController extends Controller
             'message' => 'Data edited successfully',
             'data' => $task,
         ], 200);
+    }
+
+    public function good($hashID)
+    {
+        $goal =  [];
+        $goal =  Goal::where('hashed_id', $hashID)->first();
+        $goal->goals_good = $goal->goals_good + 1;
+        $goal->save();
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ApiController;
+use App\Models\Goal;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +20,18 @@ use App\Http\Controllers\ApiController;
 |
 */
 
-Route::controller(UserController::class)->group(function () {
-
+Route::controller(GoalController::class)->group(function () {
     Route::get('/shere/{hashID}', 'shere')->name('shere');
 });
 // 本の削除
+
+
 
 Route::get('api/shere/{hashID}', [UserController::class, 'shere'])->name('apiShere');
 Route::post('/destroy/{id}', [ApiController::class, 'destroy'])->name('destroy');
 Route::post('/reset/{id}', [ApiController::class, 'reset'])->name('reset');
 Route::controller(ApiController::class)->middleware(['auth'])->group(function () {
+    Route::post('/good/{hashID}', 'good')->name('good');
     Route::get('/api/get', 'apiIndex');
     Route::post('/api/store', 'apiStore');
     Route::delete('/goals/{goal}', 'apiDelete');

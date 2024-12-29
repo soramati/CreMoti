@@ -15,9 +15,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body id="app" class="font-sans antialiased" >
-   
-
-    <div  class=" min-h-screen bg-gray-30 ">
+       <div  class=" min-h-screen bg-gray-30 ">
         @include('layouts.header')
         <home-page />
     </div>

@@ -13,6 +13,8 @@ import TopPage from './components/TopPage.vue';
 import LoadingComponent from './components/LoadingComponent.vue';
 import HomePage from './components/HomePage.vue';
 import animate from 'animate.css';
+import SherePage from './components/SherePage.vue';
+import ShereCountDownTimer from './components/ShereCountDownTimer.vue';
 
 
 const app = createApp({});
@@ -29,5 +31,9 @@ app
     .component('top-page', TopPage)
     .component('loading-component', LoadingComponent)
     .component('home-page', HomePage)
+    .component('shere-page', SherePage)
+    .component('shere-count-down-timer', ShereCountDownTimer)
+
+
 
     .mount('#app');

@@ -37,8 +37,4 @@ class UserController extends Controller
         $memberList = $user->getSetPaginateByLimit();
         return $memberList;
     }
-    public function shere()
-    {
-        return view('users/shere');
-    }
 }
