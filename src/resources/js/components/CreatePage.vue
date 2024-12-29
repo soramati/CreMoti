@@ -5,12 +5,12 @@
     <div>
       
       <div id="modal_animation" v-if="showModal" class="" >
-        <create-modal></create-modal>
+        <create-modal :data="responseData" ></create-modal>
         <div  @click="toggleModal"  class="modal_wrapper">
         </div>
       </div>
     </div>  
-    <button @click="showModal = !showModal" class="button create create_button" >つくる</button>
+    <button @click="showModal = !showModal" class="button create create_button" >新しくつくる</button>
   </div>
   </template>
 
@@ -45,7 +45,7 @@
             .finally()
         },
         mounted() {
-        this.getData();
+      
     },
 
     }
@@ -56,18 +56,6 @@
   </script>
 
   <style scoped>
-.modal_wrapper{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-}
 
 
 .btn {

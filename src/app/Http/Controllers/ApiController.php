@@ -78,9 +78,24 @@ class ApiController extends Controller
     {
         $task = Goal::find($id);
         $task->goals_is_achieved = 1;
+        $task->goals_is_set = 0;
+
         $task->save();
         return response()->json([
             'message' => 'Data done successfully',
+        ], 200);
+    }
+    public function apiEdit(Request $request, $id)
+    {
+        $task = Goal::find($id);
+        $task->goals_name = $request->goals_name;
+        $task->goals_deadline = $request->goals_deadline;
+        $task->goals_conditions = $request->goals_conditions;
+        $task->goals_reward = $request->goals_reward;
+        $task->save();
+        return response()->json([
+            'message' => 'Data edited successfully',
+            'data' => $task,
         ], 200);
     }
 }

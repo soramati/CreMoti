@@ -1,12 +1,11 @@
   <template>
     <div class="top_page">
       <div>
-    
-        <!-- <h1 class="time"> {{timeMsg}}</h1> -->
+
         <div class="nokori_box ">
-          <p class="nokoei_small">{{responseData.goals_name}}<br>まで残り...</p>
+          <p class="nokoei_small">{{data.goals_name}}<br>まで残り...</p>
           <div class="sec_box d-flex">
-            <p class="nokori sec">{{nokoriSec}}</p>
+            <p class="nokori sec">{{time}}</p>
             <small class="tani">秒</small>
           </div>
           <p  class="nokori parsent nokoei_small">{{nokoriParsent}}%</p>
@@ -22,29 +21,32 @@
 
     
       <button @click="doneApi" class="button-30 done_btn">できた！</button>
-
-  
-    <!-- <button @click="toggleMenu">➖</button> -->
-    <div v-show="isShowMenu" class="pullMenu">
-      <div class="content mt-10">
-        <button class="button" type="button" @click="resetGoal()">あとでやる</button>
+      <button @click="toggleShowModal()" class="button-30 done_btn">編集する</button>
+      <!-- <button @click="toggleMenu">➖</button> -->
+      <div v-show="isShowMenu" class="pullMenu">
+        <div class="content mt-10">
+          <button class="button" type="button" @click="resetGoal()">あとでやる</button>
+        </div>
+        <div class="content">
+          <button class="button" type="button" @click="deleteGoal()">delete</button>
+        </div>
       </div>
-      <div class="content">
-        <button class="button" type="button" @click="deleteGoal()">delete</button>
+      <create-modal v-if="showModal" :responseData="responseData" :key="responseData" ></create-modal>
+      <div  @click="toggleShowModal()" v-show="showModal" class="modal_wrapper">
       </div>
-    </div>
   </template>
 
-  <script>
-  import { ref,computed } from 'vue';
+<script>
+  import { ref,computed,defineProps } from 'vue';
   import axios from 'axios';
+
 
   export default {
     data() {
       return {
         someDate: '2019-02-01',
         count: 1,
-        time: this.getTime(),
+        time: 0,
         y: 0,
         m: 0,
         d: 0,
@@ -54,7 +56,15 @@
         isShowMenu: false,
         start: ref(0),
         nowPercent: 0,
+        showModal: ref(false),
+        isShowLoading: true,
       };
+    },
+    props: {
+      data: {
+        type: Object,
+        required: true
+      }
     },
     computed: {
 
@@ -79,22 +89,27 @@
         return timeMsg;
       }
     },
+    
     mounted() {
-
-      this.getData();
+      this.getdiffSec();
+      this.setTime(0);
       setInterval(() => {
-        this.time = this.time - 1;
+        this.setTime(1);
+        this.isShowLoading = false;
+      }, 1000);
+      // console.log(this.responseData);
+      console.log('this.responseData');
+    },
+    methods: {
+      setTime(int){
+        this.time = this.time - int;
         this.s = this.time % 60;
         this.m = Math.floor(this.time / 60) % 60;
         this.h = Math.floor(this.time / 60 / 60);
         this.d = Math.floor(this.time / 60 / 60 / 24);
-        console.log(this.d);
-      }, 1000);
-      
-    },
-    methods: {
+      },
       doneApi() {
-        axios.post('/done/' + this.responseData.id)
+        axios.post('/done/' + this.data.id)
           .then(response => {
             alert('おめでとうございます！');
             window.location.href = '/';
@@ -104,8 +119,8 @@
           });
       },
       getCreatedToDeadline(){
-        const date = new Date(this.responseData.goals_deadline);
-        const now = new Date(this.responseData.created_at);
+        const date = new Date(this.data.goals_deadline);
+        const now = new Date(this.data.created_at);
         const diff = date - now;
       const diffSec = diff / 1000;
       return Math.floor(diffSec);
@@ -130,18 +145,14 @@
       counter() {
         this.count++;
       },
-      getTime() {
-        return this.deadline.int;
+      getdiffSec() {
+      const deadline = new Date( this.data.goals_deadline);
+      const now = new Date();
+      const diff = deadline - now;
+         this.time = diff;
+
       },
-      getData() {
-        axios.get('/testApi', {})
-          .then(response => {
-            this.responseData = response.data;
-          })
-          .catch(error => {
-            alert('API ERROR');
-          });
-      },
+
       deleteGoal() {
         axios.post('/destroy/' + this.responseData.id)
           .then(response => {
@@ -151,6 +162,11 @@
           .catch(error => {
             alert(error);
           });
+      },
+      toggleShowModal() {
+        console.log('toggleShowModal');
+        console.log(this.responseData);
+        this.showModal = !this.showModal;
       },
       resetGoal() {
         axios.post('/reset/' + this.responseData.id)
@@ -163,16 +179,6 @@
           });
       },
 
-    },
-    props: {
-      deadline: {
-        type: String,
-        required: true
-      },
-      fullTime: {
-        type: String,
-        required: true
-      }
     }
   }
   </script>
@@ -191,6 +197,12 @@
       flex-direction: column;
       align-items: center;
     }
+    .top {
+
+padding: 3rem 0;
+background: #5CE5B4;
+height: 100vh;
+}
   }
   .btn {
     background-color: blue;

@@ -2,8 +2,9 @@
   <div>
     <div class="modal_content">
       <div class="modal_text">
+     
         <div v-show="modal_num === 1" class="change_text">
-          <h1>何をクリアしたいか書いてみましょう（{{ goals_name.length }}/20字）</h1>
+          <h1>何をクリアしたいか書いてみましょう（{{  goals_name.length }}/20字）</h1>
           <div class="relative z-0 w-full mb-5 group">
             <input v-model="goals_name" type="text" id="title" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" name="goal[goals_name]" :value="goals_name" placeholder="" required />
             <label for="title" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">タイトル</label>
@@ -22,6 +23,7 @@
             <label for="date" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">達成したい日</label>
             <small class="error_msg">{{ errormsg(goals_name.length) }}</small>
           </div>
+          <!-- <button @click="plusDate(5)">+5</button> -->
           <p v-show="isPastDate(goals_deadline)" class="error_msg">過去の日付は入力できません</p>
           <div class="btn_wrapper">
               <button type="submit" @click="beforePabe" class="text-white bg-gray-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">もどる</button>
@@ -30,8 +32,7 @@
         </div>
         <div v-show="modal_num === 3" class="change_text">
           <h1>クリア達成の条件を明確に書きましょう（{{ goals_conditions.length }}/20字）</h1>
-          <small>{{ goals_conditions }}</small>
-          <div class="relative z-0 w-full mb-5 group">
+           <div class="relative z-0 w-full mb-5 group">
             <input v-model="goals_conditions" type="text" maxlength="20" name="goal[goals_conditions]" id="goals_conditions" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
             <label for="goals_conditions" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">達成する条件</label>
             <small class="error_msg">{{ errormsg(goals_conditions.length) }}</small>
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-import { ref ,computed} from 'vue';
+import { ref ,computed,defineProps} from 'vue';
 import axios from 'axios';
 
 let showModal = ref(false);
@@ -82,20 +83,53 @@ export default {
   setup() {
     return { showModal };
   },
+  props: {
+    responseData: {
+      type: Object,
+      required: false
+    }
+  },
   data() {
     return {
-      responseData: [],
+      
       modal_num: 1,
       goals_name: ref(''),
       goals_deadline: ref(''),
       goals_conditions: ref(''),
       goals_reward: ref(''),
       isVri: ref(false),
-    
+      
     }
+    
+  },
+  mounted() {
+    //次の日を設定する '2025-01-01T00:00'の形式で設定
+
+  let tomorrow = new Date();
+  const day = tomorrow.getDate()+1;
+  const month = tomorrow.getMonth()+1;
+  const year = tomorrow.getFullYear();
+  let text  = `${year}-${month}-${day}T12:00`;
+  console.log(text);
+    this.goals_deadline = text;
+
+    if (this.responseData.length === 0) {
+      
+      
+    }else{
+      this.goals_name = this.responseData.goals_name;
+      this.goals_deadline = this.responseData.goals_deadline;
+      this.goals_conditions = this.responseData.goals_conditions;
+      this.goals_reward = this.responseData.goals_reward;
+
+      console.log('これがタイプです');
+      console.log(this.goals_deadline.typeof);
+    }
+  
   
   },
   methods: {
+
     isPastDate(date) {
       let now = new Date();
       let inputDate = new Date(date);
@@ -150,11 +184,6 @@ export default {
       console.log(data);
       window.location.reload();
     },
-    mounted() {
-      this.goals_deadline = this.getToday();
-
-
-    },
   
   },
 };
@@ -200,6 +229,12 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+h1{
+  color: #333 ;
+}
+input{
+  color: #333;
 }
 @media (max-width: 768px) {
   .modal_content {

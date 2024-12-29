@@ -14,77 +14,13 @@
     {{-- <link rel="stylesheet" href="{{ asset('/sanitize.css') }}"> --}}
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
-<body id="app" class="font-sans antialiased">
+<body id="app" class="font-sans antialiased" >
+
     <div class="min-h-screen bg-gray-30">
         @include('layouts.header')
-        <div class="top center w-full">
-            <div class="count_page">
-                @if($set_goal ==! null)
-                <div class="count_down">
-                    <div>
-                        <count-down-timer :deadline="{{ json_encode($set_goal->howLongTime()) }}" />
-                    </div>
-                    {{-- <div class="mt-7">
-                        <div class="content">
-                            <form action="/goals/done/{{ $set_goal->id }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <input class="top_button" type="submit" value="できた！">
-                            </form>
-                        </div>
-                        <div class="edit">
-                            <a class="top_button" href="/goals/{{ $set_goal->id }}/edit">編集する</a>
-                        </div>
-                    </div> --}}
-                </div>
-                @else
-                <top-page />
-                @endif
-            </div>
-        </div>
-        <div class="center create_bar">
-            <create-page></create-page>
-           
-        </div>
-        <div class="cards_wrapper w-full">
-            <h3>あとでやる</h3>
-            <goal-list  />
+        
+        <home-page />
 
-
-            <div class="cards_wrapper w-full">
-                <h3>達成済み</h3>
-                <div class="grid gap-7 sm:grid-cols-2 md:gap-8 xl:grid-cols-3">
-                    @foreach($own_posts as $goal)
-                    @if($goal->goals_is_achieved == 1)
-                    <div class="card">
-                        <TaskCard :goal="{{ json_encode($goal) }}" />
-                        <div class="content">
-                            <form action="/goals/set/{{ $goal->id }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <input class="button" type="submit" value="リセット">
-                            </form>
-                        </div>
-                        <div class="content">
-                            <form action="/goals/{{ $goal->id }}" id="form_{{ $goal->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="button" type="button" onclick="deleteGoal({{ $goal->id }})">delete</button>
-                            </form>
-                        </div>
-                        <div class="content">
-                            <form action="/goals/done/{{ $goal->id }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <input class="button" type="submit" value="完了">
-                            </form>
-                        </div>
-                    </div>
-                    @endif
-                    @endforeach
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 </html>
@@ -137,25 +73,7 @@
         background: #5CE5B4;
         min-height: 25rem;
     }
-    .count_page {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    @media (max-width: 768px) {
-        .count_page {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .top {
 
-        padding: 3rem 0;
-        background: #5CE5B4;
-        height: 100vh;
-    }
-    }
     p, h4 {
         color: #333;
         font-family: sans-serif;
@@ -287,6 +205,7 @@
     }
 </style>
 <script>
+
     function deleteGoal(id) {
         'use strict'
         if (confirm('削除すると復元できません。\n本当に削除しますか？')) {

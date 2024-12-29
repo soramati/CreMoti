@@ -10,6 +10,8 @@ import CreatePage from './components/CreatePage.vue';
 import GoalList from './components/GoalList.vue';
 import ShereTimer from './components/ShereTimer.vue';
 import TopPage from './components/TopPage.vue';
+import LoadingComponent from './components/LoadingComponent.vue';
+import HomePage from './components/HomePage.vue';
 
 
 const app = createApp({});
@@ -24,4 +26,7 @@ app
     .component('goal-list', GoalList)
     .component('shere-timer', ShereTimer)
     .component('top-page', TopPage)
+    .component('loading-component', LoadingComponent)
+    .component('home-page', HomePage)
+
     .mount('#app');

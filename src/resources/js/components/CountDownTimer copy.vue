@@ -1,5 +1,6 @@
   <template>
     <div class="top_page">
+      <loading-component v-if="isShowLoading" />
       <div>
         <graph-doughnut :time="time" :key="time" :start="deadline.int_full"  />
       </div>
@@ -20,6 +21,9 @@
         </div>
         <div v-show="isShowMenu" class="pullMenu">
           <div class="content mt-10">
+            <button class="button" type="button" @click="editGoal()">あとでやる</button>
+          </div>
+          <div class="content mt-10">
             <button class="button" type="button" @click="resetGoal()">あとでやる</button>
           </div>
           <div class="content">
@@ -28,11 +32,13 @@
         </div>
       </div>
     </div>
+    
   </template>
 
   <script>
   import { ref } from 'vue';
   import axios from 'axios';
+import LoadingComponent from './LoadingComponent.vue';
 
   export default {
     data() {
@@ -47,6 +53,7 @@
         h: 0,
         responseData: [],
         isShowMenu: false,
+        isShowLoading: true,
       };
     },
     mounted() {
@@ -60,6 +67,7 @@
         this.d = Math.floor(this.time / 60 / 60 / 24);
         console.log(this.d);
       }, 1000);
+      this.isShowLoading = false;
     },
     methods: {
       toggleMenu() {
@@ -90,6 +98,16 @@
           })
           .catch(error => {
             alert('API ERROR');
+          });
+      },
+      editGoal() {
+        axios.post('/edit/' + this.responseData.id)
+          .then(response => {
+            alert('編集しました');
+            window.location.href = '/';
+          })
+          .catch(error => {
+            alert(error);
           });
       },
       deleteGoal() {

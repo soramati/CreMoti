@@ -29,7 +29,7 @@
               
                 @else
                 <div id="animation" class="none_title">
-                    <h1 class="">今日は、何をしよう</h1>
+                    <h1 class="title">今日は、何をしよう</h1>
                     <small>ひとつのタスクを選択しよう</small>
                 </div>
                 @endif

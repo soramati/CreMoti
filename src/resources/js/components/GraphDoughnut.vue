@@ -98,6 +98,8 @@ const ratioText = {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+  max-width: 1100px;
+
   z-index: -1;
 
  
