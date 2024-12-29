@@ -8,23 +8,23 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('/main.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/main.css') }}"> --}}
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- <link rel="stylesheet" href="{{ asset('/sanitize.css') }}"> --}}
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body id="app" class="font-sans antialiased" >
+   
 
-    <div class="min-h-screen bg-gray-30">
+    <div  class=" min-h-screen bg-gray-30 ">
         @include('layouts.header')
-        
         <home-page />
-
     </div>
 </body>
 </html>
 <style scoped>
+
     .cards_wrapper {
         width: 95%;
         margin: 0 auto;

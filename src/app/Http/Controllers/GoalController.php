@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Goal;
 use App\Http\Requests\GoalRequest;
+use Illuminate\Support\Facades\Hash;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,8 @@ class GoalController extends Controller
         return view('goals.show')->with(['goal' => $goal]);
         //'goal'はbladeファイルで使う変数。中身は$goalはid=1のgoalインスタンス。
     }
+
+
     public function create()
     {
         return view('goals.create');
@@ -38,6 +41,8 @@ class GoalController extends Controller
     {
         $input = $request['goal'];
         $input += ['user_id' => $request->user()->id];
+
+        $input += ['hashed_id' => Hash::make($input['id'])];
         $goal->fill($input)->save();
 
         return redirect('/');

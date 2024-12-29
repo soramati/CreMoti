@@ -1,4 +1,6 @@
 <template>
+  
+  <loading-component v-if="isShowLoading" />
   <div class="home">
     <div class="col">
 
@@ -18,7 +20,7 @@
         </div>
     </div>
     <div class="cards_wrapper w-full">
-            <h3>あとでやる</h3>
+       
             <goal-list  />
 </div>
   </div>
@@ -27,6 +29,7 @@
 <script>
 import { ref, computed } from 'vue';
 import axios from 'axios';
+import LoadingComponent from './LoadingComponent.vue';
 
 export default {
   data() {
@@ -34,6 +37,7 @@ export default {
       responseData: {},
       showModal: ref(false),
       setGoal: [],
+      isShowLoading: true,
     }
   },
   props: {
@@ -62,10 +66,11 @@ export default {
         .then(response => {
           this.responseData = response.data;
           this.SelectSetGoal();
+          this.isShowLoading = false;
      
         })
         .catch(error => {
-          alert(error);
+          this.isShowLoading = false;
         });
     },
     SelectSetGoal() {  

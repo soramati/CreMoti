@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
     public function index(User $user)
     {
         return view('users/index')->with([
@@ -36,13 +37,8 @@ class UserController extends Controller
         $memberList = $user->getSetPaginateByLimit();
         return $memberList;
     }
-
-    public function shere($userid)
+    public function shere()
     {
-        $user = User::find($userid);
-
-        return view('users/shere')->with([
-            'set_goal' => $user->getShering($userid)
-        ]);
+        return view('users/shere');
     }
 }

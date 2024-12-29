@@ -12,6 +12,7 @@ import ShereTimer from './components/ShereTimer.vue';
 import TopPage from './components/TopPage.vue';
 import LoadingComponent from './components/LoadingComponent.vue';
 import HomePage from './components/HomePage.vue';
+import animate from 'animate.css';
 
 
 const app = createApp({});

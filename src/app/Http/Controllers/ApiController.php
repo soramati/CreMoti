@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Goal;
 use App\Models\User;
+use Faker\Provider\Base;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
@@ -26,6 +28,15 @@ class ApiController extends Controller
             'data' => $goals,
         ], 200);
     }
+    public function apiShere($hashID)
+    {
+        $goal = Goal::where('hashed_id', $hashID)->first();
+        return response()->json([
+            'message' => 'Data read successfully',
+            'data' => $goal,
+        ], 200);
+    }
+
 
     public function apiStore(Request $request)
     {
@@ -37,6 +48,11 @@ class ApiController extends Controller
         $goal->goals_conditions = $request->goals_conditions;
         $goal->goals_reward = $request->goals_reward;
         $goal->goals_is_set = $request->goals_is_set;
+        // $goal->hashed_id = Hash::make($request->id);
+        $str = strval($request->id);
+        $goal->hashed_id = base64_encode($str);
+        // $goal->hashed_id = hash('sha256', $request->id);
+
         $goal->user_id = Auth::id();
         $goal->save();
         // レスポンスとホームへリダイレクト

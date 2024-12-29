@@ -19,8 +19,13 @@ use App\Http\Controllers\ApiController;
 |
 */
 
+Route::controller(UserController::class)->group(function () {
+
+    Route::get('/shere/{hashID}', 'shere')->name('shere');
+});
 // 本の削除
-Route::get('/shere/{userid}', [UserController::class, 'shere'])->name('shere');
+
+Route::get('api/shere/{hashID}', [UserController::class, 'shere'])->name('apiShere');
 Route::post('/destroy/{id}', [ApiController::class, 'destroy'])->name('destroy');
 Route::post('/reset/{id}', [ApiController::class, 'reset'])->name('reset');
 Route::controller(ApiController::class)->middleware(['auth'])->group(function () {
@@ -47,6 +52,7 @@ Route::controller(GoalController::class)->middleware(['auth'])->group(function (
 // ここまでApi
 
 Route::get('/api', 'TestApiController@store');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('goals_name', 20)->require();
             $table->boolean('goals_is_deadline')->default(false);
+            $table->string('hashed_id')->unique()->nullable($value = true);
             $table->dateTimeTz('goals_deadline', $precision = 2)->nullable($value = true);
             $table->dateTimeTz('started_at', $precision = 2)->nullable($value = true);
             $table->string('goals_reward', 50)->default('特になし')->nullable($value = true);

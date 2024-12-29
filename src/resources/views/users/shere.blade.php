@@ -15,27 +15,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body id="app" class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-30">
-        @include('layouts.header')
-        <div class="top center w-full">
-            <div class="count_page">
-                @if($set_goal ==! null)
-                <div class="count_down">
-                    <div>
-                        <shere-timer :data="{{json_encode($set_goal)}}"                      />
-                    </div>
-                    {{-- {{json_encode($set_goal['time'])}} --}}
-                </div>
-              
-                @else
-                <div id="animation" class="none_title">
-                    <h1 class="title">今日は、何をしよう</h1>
-                    <small>ひとつのタスクを選択しよう</small>
-                </div>
-                @endif
-            </div>
-        </div>
-    </div>
+    <h1>シェアハピ</h1>
 
      
 </body>
