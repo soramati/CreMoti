@@ -1,9 +1,7 @@
-<template>
-  
+<template> 
   <loading-component v-if="isShowLoading" />
   <div class="home">
     <div class="col">
-
       <div class="count_page">
         <div v-if="isSetGoal" class="count_down">
           <count-down-timer :data="setGoal" :key="setGoal"/>
@@ -66,8 +64,7 @@ export default {
         .then(response => {
           this.responseData = response.data;
           this.SelectSetGoal();
-          this.isShowLoading = false;
-     
+          this.isShowLoading = false;  
         })
         .catch(error => {
           this.isShowLoading = false;
