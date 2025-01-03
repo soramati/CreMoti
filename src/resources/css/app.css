@@ -1,0 +1,520 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.home{
+    height: 100%;
+}
+#app{
+  
+
+    /* background-color: #85FFBD; */
+    background-image: linear-gradient(326deg, #5CE5B4 0%, #85FFBD 100%);
+    height: 100%;
+    z-index: -100;
+}
+.count_down {
+    color: #333;
+    font-family: sans-serif;
+    font-weight: 550;
+    font-family: "Ryo Gothic PlusN";
+    color: #FFF;
+    font-size: 1.5rem;
+    width: 95%;
+
+}
+
+.nav_span{
+    width: 20px;
+  }
+canvas {
+    width: 100%;
+}
+
+
+#modal_animation {
+    animation: fade-in 1s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  
+.user_name{
+    color: white;
+    font-size: 0.8rem;
+    margin-right: 1rem;
+  }
+  .logout{
+    color: white;
+    font-size: 0.8rem;
+  
+  }
+  
+  .right_container{
+    color: white;
+    display: flex;
+    margin-right: 1rem;
+  }
+    header {
+  
+      width: 100%;
+      height: 3rem;
+      /* box-shadow: 0px 4px 4px 0px #00000040; */
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+    }
+    .logo_container h1 {
+      font-size: 0.8rem;
+      color: white;
+      margin-left: 1rem;
+      line-height: 0.9rem;
+  
+    }
+    header a {
+      color: white;
+    }
+    header a:hover {
+      text-decoration: underline;
+    }
+  
+  
+/* モーダル */
+.day_modal{
+
+
+}
+
+.modal_content{
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+    z-index: 100;
+}
+.modal_text{
+    width: 60%;
+    height: 60%;
+
+}
+.modal_text h1{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* モーダルここまで */
+
+.cards_wrapper {
+    width: 95%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.create_bar {
+    margin-bottom: 3rem;
+}
+
+.top_button {
+    width: 8rem;
+    height: 2rem;
+    border-radius: 58px;
+    background: #fff;
+    flex-shrink: 0;
+    color: #333;
+    text-align: center;
+    font-family: "Ryo Gothic PlusN";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 2rem;
+    border: none;
+    margin-bottom: 1rem;
+    /* text-align: center; */
+}
+
+.count_down {
+    color: #333;
+    font-family: sans-serif;
+    font-weight: 550;
+    font-family: "Ryo Gothic PlusN";
+    color: #FFF;
+    font-size: 1.5rem;
+
+}
+
+.top_card_cover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 2%;
+    display: inline-block;
+    background: #fff;
+    transform: skewX(30deg);
+    width: 30%;
+    height: 100%;
+}
+
+.top {
+    padding: 3rem 0;
+
+    min-height: 25rem;
+    padding: 3rem 0;
+
+    height: 100vh;
+}
+
+.count_page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+#animation {
+    animation: fade-in 3s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+
+
+p,
+h4 {
+    color: #333;
+    font-family: sans-serif;
+    font-weight: 550;
+    font-family: "Ryo Gothic PlusN";
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.card p {
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+
+.card {
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+    max-height: 400px;
+    /* flex-shrink: 0; */
+
+    border-radius: 6px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.create {
+    margin: 3rem;
+}
+
+.content {
+    display: flex;
+    justify-content: center
+}
+
+.content_goal {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit {
+    display: flex;
+    justify-content: space-around;
+}
+
+.back {
+    display: flex;
+    justify-content: space-around;
+}
+
+.goal {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card_title {
+    display: flex;
+    justify-content: flex-start;
+    background: #5CE5B4;
+    color: #FFF;
+    padding-left: 5%;
+    width: 100%;
+    min-height: 2rem;
+    border-radius: 2px 2px 0 0;
+
+}
+
+.card_title a {
+
+    color: #FFF;
+
+}
+
+.card p {
+    color: #5CE5B4;
+}
+
+.body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.title__error {
+    display: flex;
+    justify-content: space-around;
+}
+
+.body__error {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    width: 8rem;
+    height: 2rem;
+    border-radius: 58px;
+    background: #5CE5B4;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: "Ryo Gothic PlusN";
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    border: none;
+    margin-bottom: 1rem;
+}
+
+button:active,
+input[type="submit"]:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+        0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+        0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+
+}
+
+a:active {
+    color: #000000;
+}
+
+.none_title {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFF;
+
+}
+
+.none_title h1 {
+
+    font-size: 2rem;
+}
+
+.create_button {
+    width: 8rem;
+    height: 2rem;
+    border-radius: 58px;
+    background: #5CE5B4;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: "Ryo Gothic PlusN";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+}
+
+/* admin */
+
+.button-29 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 250px;
+    margin:0 auto;
+    padding: .9em 2em;
+    overflow: hidden;
+    border: 1px solid #5ce5b4;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #5ce5b4;
+    font-size: 1em;
+}
+
+.button-29:hover {
+    background-color: transparent;
+    color: #fff;
+}
+
+.button-29::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 0;
+    height: 100%;
+    background-color: #5ce5b4;
+    content: '';
+    transition: width .3s ease;
+}
+
+.button-29:hover::before {
+    width: 100%;
+}
+.button-30 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* max-width: 250px; */
+    /* width: 100%; */
+    margin:0 auto;
+    padding: .6em 2em;
+    /* border: 1px solid #5ce5b4; */
+    border-radius: 5px;
+    background-color: #fff;
+    color: #5ce5b4;
+    font-size: 1.3rem;
+}
+.button-30:disabled {
+
+    color: #fff;
+    background-color: #b0aeaeb6;
+    
+    }
+
+.nokori{
+
+}
+.d-flex{
+    display: flex;
+    align-items: baseline;
+
+}
+
+.button-30:hover {
+    animation: anima-button-30 1s;
+}
+.nokori_box{
+
+}
+.nokori_box p{
+    
+    text-align: center;
+    color: #fff;
+    opacity: 0.9;
+    text-shadow: rgba(153, 149, 149, 0.613) 1px 0 10px;
+}
+.nokoei_small{
+    font-size: 1.5rem;
+    
+    font-weight: 800;
+}
+.sec{
+    font-size: 7.4rem;
+    font-weight: 800;
+}
+@keyframes anima-button-30 {
+    0% {
+        box-shadow: 0 0 0 0 rgb(255, 255, 255)
+    }
+    100% {
+        box-shadow: 0 0 0 1.2em rgb(0 0 0 / 0%);
+    }
+}
+.top_span{
+    height: 4rem;
+}
+
+.modal_wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+.shereLink{
+width: 164px;
+height: 30px;
+font-size: 1rem;
+margin-top: 1rem;
+}
+@media screen and (max-width: 768px) {
+    .count_page {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    html{
+        font-size: 10px;
+    
+    }
+    .sec{
+        font-size: 4.4rem;
+    }
+    .shereLink{
+        width: 104px;
+        height: 20px;
+        font-size: 1rem;
+        margin-top: 1rem;
+        }
+}
