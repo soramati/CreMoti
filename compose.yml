@@ -7,7 +7,7 @@ services:
   # phpの設定
   app:
     # サービス名（≠コンテナ名）を指定
-    container_name: CreMoti_app # コンテナ名を指定（別のdocker環境がある場合、そちらとコンテナ名が被らないように注意）
+    container_name: Kakugo # コンテナ名を指定（別のdocker環境がある場合、そちらとコンテナ名が被らないように注意）
     build:
       # ビルドするDockerfileの設定
       context: . # docker buildコマンドを実行する場所を指定（基本ルートディレクトリを指定しておけば良い（*2））
@@ -27,14 +27,14 @@ services:
 
   # nginxの設定
   web:
-    container_name: CreMoti_nginx
+    container_name: Kakugo_nginx
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     ports:
       # ローカルとdockerコンテナ間のポート番号の対応付けを設定
       - ${WEB_PORT}:80 # {ローカルのポート番号}:{dockerコンテナのポート番号}（ローカルは未使用のポートを指定すること、dockerはかぶっていてもOK）
-      - 5175:5175
+
     depends_on:
       # コンテナ間の依存関係を設定
       - app # 先に起動するコンテナのサービス名を指定（コンテナ名ではない）
@@ -43,7 +43,7 @@ services:
 
   # mysqlの設定
   db:
-    container_name: CreMoti_mysql
+    container_name: Kakugo_mysql
     build:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
