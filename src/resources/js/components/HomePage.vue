@@ -1,26 +1,25 @@
-<template> 
+<template>
   <loading-component v-if="isShowLoading" />
   <div class="home">
     <div class="col">
       <div class="count_page">
         <div v-if="isSetGoal" class="count_down">
-          <count-down-timer :data="setGoal" :key="setGoal"/>
+          <count-down-timer :data="setGoal" :key="setGoal" />
         </div>
         <div v-else>
           <div>
             <top-page />
-          </div>                 
+          </div>
         </div>
       </div>
       <div class="center create_bar">
-            <!-- <create-page></create-page> -->
-           
-        </div>
+        <!-- <create-page></create-page> -->
+
+      </div>
     </div>
     <div class="cards_wrapper w-full">
-       
-            <goal-list  />
-</div>
+      <goal-list />
+    </div>
   </div>
 </template>
 
@@ -64,13 +63,13 @@ export default {
         .then(response => {
           this.responseData = response.data;
           this.SelectSetGoal();
-          this.isShowLoading = false;  
+          this.isShowLoading = false;
         })
         .catch(error => {
           this.isShowLoading = false;
         });
     },
-    SelectSetGoal() {  
+    SelectSetGoal() {
       this.responseData.data.filter((data) => {
         if (data.goals_is_set === 1) {
           this.setGoal = data;
@@ -83,29 +82,31 @@ export default {
 </script>
 
 <style scoped>
-
 .col {
 
-display: flex;
-flex-direction: column;
-justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100vh;
   margin: bottom 50px;
 }
+
 .count_page {
- 
+
 
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 @media (max-width: 768px) {
   .count_page {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
+
   .top {
     padding: 3rem 0;
     background: #5CE5B4;

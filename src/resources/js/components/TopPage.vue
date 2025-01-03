@@ -1,10 +1,10 @@
 <template>
   <div id="animation" class="none_title">
-    <h1 class="">今日は、何をしよう</h1>
+    <vue-typer text="てすと"></vue-typer>
     <small>ひとつのタスクを選択しよう</small>
     <span class="top_span"></span>
     <button @click="showModal = !showModal" class="button-30">はじめる</button>
-  
+
   </div>
   <div>
     <div>
@@ -21,6 +21,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 export default {
+
   setup() {
     return { showModal };
   },
@@ -71,5 +72,4 @@ export default {
   border: none;
   border-radius: 5px;
 }
-
 </style>

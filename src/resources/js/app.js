@@ -15,7 +15,7 @@ import HomePage from './components/HomePage.vue';
 import animate from 'animate.css';
 import SherePage from './components/SherePage.vue';
 import ShereCountDownTimer from './components/ShereCountDownTimer.vue';
-
+import { VueTyperPlugin } from 'vue-typer';
 
 const app = createApp({});
 app
@@ -33,6 +33,9 @@ app
     .component('home-page', HomePage)
     .component('shere-page', SherePage)
     .component('shere-count-down-timer', ShereCountDownTimer)
+    .use(VueTyperPlugin)
+
+
 
 
 
