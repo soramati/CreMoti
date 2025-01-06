@@ -1,6 +1,6 @@
 <template>
   <div id="animation" class="none_title">
-    <vue-typer text="てすと"></vue-typer>
+    <h1 class="">今日は、何をしよう</h1>
     <small>ひとつのタスクを選択しよう</small>
     <span class="top_span"></span>
     <button @click="showModal = !showModal" class="button-30">はじめる</button>
