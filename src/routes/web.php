@@ -20,6 +20,11 @@ use App\Models\Goal;
 |
 */
 
+Route::controller(UserController::class)->group(function () {
+    Route::get('/welcome', 'welcome')->name('welcome');
+});
+
+
 Route::controller(GoalController::class)->group(function () {
     Route::get('/shere/{hashID}', 'shere')->name('shere');
 });

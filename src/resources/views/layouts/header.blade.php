@@ -4,6 +4,7 @@
     <div onclick="goHome()" class="logo_container">
       <h1 class="logo_top" >Creator's</h1>
       <h1 class="logo_bottom">motivation</h1>
+
     </div>
 
         <!-- Responsive Settings Options -->
@@ -12,16 +13,16 @@
             <x-responsive-nav-link :href="route('profile.edit')">
                 {{ __('Profile') }}
             </x-responsive-nav-link>
-            <span class="nav_span"></span>
+            <span class="nav_span">=</span>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
-
             <x-responsive-nav-link :href="route('logout')"
                     onclick="event.preventDefault();
                                 this.closest('form').submit();">
                 {{ __('Log Out') }}
             </x-responsive-nav-link>
           </form>
+
         </div>
   </header>
   
@@ -70,6 +71,11 @@
       }
       header a:hover {
         text-decoration: underline;
+      }
+      #ver{
+        font-size: 0.2rem;
+        margin-left: 1rem;
+        color: white
       }
     
     

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function welcome()
+    {
+        return view('users/welcome');
+    }
 
     public function index(User $user)
     {

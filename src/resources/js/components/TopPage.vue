@@ -4,7 +4,6 @@
     <small>ひとつのタスクを選択しよう</small>
     <span class="top_span"></span>
     <button @click="showModal = !showModal" class="button-30">はじめる</button>
-
   </div>
   <div>
     <div>

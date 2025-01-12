@@ -22,8 +22,10 @@
                     stat_minus_1
                     </span>
                 {{ $slot }}
+     
             </main>
         </div>
+
     </body>
 </html>
 <style>

@@ -21,6 +21,7 @@
       <goal-list />
     </div>
   </div>
+
 </template>
 
 <script>
