@@ -16,7 +16,7 @@ import animate from 'animate.css';
 import SherePage from './components/SherePage.vue';
 import WelcomePage from './components/WelcomePage.vue';
 import ShereCountDownTimer from './components/ShereCountDownTimer.vue';
-import Footer from './components/Footer.vue';
+
 
 
 const app = createApp({});
@@ -36,5 +36,5 @@ app
     .component('shere-page', SherePage)
     .component('shere-count-down-timer', ShereCountDownTimer)
     .component('welcome-page', WelcomePage)
-    .component('footer-nav', Footer)
+
     .mount('#app');
